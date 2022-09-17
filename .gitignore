@@ -1,3 +1,4 @@
+Leafy/Leafy/Helper/Secret.swift
 
 # Created by https://www.toptal.com/developers/gitignore/api/xcode,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=xcode,macos
@@ -48,4 +49,3 @@ xcuserdata/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,macos
-Leafy/Leafy/Helper/Secret.swift
