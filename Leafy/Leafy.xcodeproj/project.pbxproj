@@ -14,7 +14,6 @@
 		C72752C628D2565300013F46 /* PlantInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752C528D2565300013F46 /* PlantInfo.swift */; };
 		C72752CA28D25BFA00013F46 /* PlantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752C928D25BFA00013F46 /* PlantData.swift */; };
 		C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752CC28D25E7300013F46 /* PlantDataStore.swift */; };
-		C72752D028D637CE00013F46 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752CF28D637CE00013F46 /* Secret.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +26,6 @@
 		C72752C928D25BFA00013F46 /* PlantData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantData.swift; sourceTree = "<group>"; };
 		C72752CC28D25E7300013F46 /* PlantDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDataStore.swift; sourceTree = "<group>"; };
 		C72752CE28D3291C00013F46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		C72752CF28D637CE00013F46 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				C72752CC28D25E7300013F46 /* PlantDataStore.swift */,
-				C72752CF28D637CE00013F46 /* Secret.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -184,7 +181,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C72752B728D250E300013F46 /* ContentView.swift in Sources */,
-				C72752D028D637CE00013F46 /* Secret.swift in Sources */,
 				C72752B528D250E300013F46 /* LeafyApp.swift in Sources */,
 				C72752C628D2565300013F46 /* PlantInfo.swift in Sources */,
 				C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */,
