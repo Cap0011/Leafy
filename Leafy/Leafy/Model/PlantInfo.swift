@@ -7,20 +7,18 @@
 
 import Foundation
 
-class PlantInfo: ObservableObject, Codable {
-    @Published var plantName = ""
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        plantName = try container.decode(String.self, forKey: .plantName)
+class PlantInfo {
+    init() {
+        
     }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(plantName, forKey: .plantName)
+    init(contentNo: Int?, nameKr: String?, nameEng: String?, nameStudy: String?) {
+        self.cntntsNo = contentNo
+        self.plntbneNm = nameKr
+        self.plntzrNm = nameEng
+        self.distbNm = nameStudy
     }
-    
-    enum CodingKeys: CodingKey {
-        case plantName
-    }
+    var cntntsNo: Int?
+    var plntbneNm: String?
+    var plntzrNm: String?
+    var distbNm: String?
 }

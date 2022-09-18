@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C70C12E928D70978003DF92A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12E828D70978003DF92A /* MainView.swift */; };
 		C72752B528D250E300013F46 /* LeafyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752B428D250E300013F46 /* LeafyApp.swift */; };
 		C72752B728D250E300013F46 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752B628D250E300013F46 /* ContentView.swift */; };
 		C72752B928D250E400013F46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72752B828D250E400013F46 /* Assets.xcassets */; };
 		C72752BC28D250E400013F46 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72752BB28D250E400013F46 /* Preview Assets.xcassets */; };
 		C72752C628D2565300013F46 /* PlantInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752C528D2565300013F46 /* PlantInfo.swift */; };
-		C72752CA28D25BFA00013F46 /* PlantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752C928D25BFA00013F46 /* PlantData.swift */; };
+		C72752CA28D25BFA00013F46 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752C928D25BFA00013F46 /* Plant.swift */; };
 		C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752CC28D25E7300013F46 /* PlantDataStore.swift */; };
 		C72752D228D63B3100013F46 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752D128D63B3100013F46 /* Secret.swift */; };
 		C72752D528D63CE300013F46 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = C72752D428D63CE300013F46 /* Realm */; };
@@ -20,13 +21,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C70C12E828D70978003DF92A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C72752B128D250E300013F46 /* Leafy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leafy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72752B428D250E300013F46 /* LeafyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeafyApp.swift; sourceTree = "<group>"; };
 		C72752B628D250E300013F46 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C72752B828D250E400013F46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C72752BB28D250E400013F46 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C72752C528D2565300013F46 /* PlantInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantInfo.swift; sourceTree = "<group>"; };
-		C72752C928D25BFA00013F46 /* PlantData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantData.swift; sourceTree = "<group>"; };
+		C72752C928D25BFA00013F46 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		C72752CC28D25E7300013F46 /* PlantDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDataStore.swift; sourceTree = "<group>"; };
 		C72752CE28D3291C00013F46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C72752D128D63B3100013F46 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
@@ -88,7 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				C72752C528D2565300013F46 /* PlantInfo.swift */,
-				C72752C928D25BFA00013F46 /* PlantData.swift */,
+				C72752C928D25BFA00013F46 /* Plant.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				C72752B628D250E300013F46 /* ContentView.swift */,
+				C70C12E828D70978003DF92A /* MainView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -195,11 +198,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C72752B728D250E300013F46 /* ContentView.swift in Sources */,
+				C70C12E928D70978003DF92A /* MainView.swift in Sources */,
 				C72752D228D63B3100013F46 /* Secret.swift in Sources */,
 				C72752B528D250E300013F46 /* LeafyApp.swift in Sources */,
 				C72752C628D2565300013F46 /* PlantInfo.swift in Sources */,
 				C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */,
-				C72752CA28D25BFA00013F46 /* PlantData.swift in Sources */,
+				C72752CA28D25BFA00013F46 /* Plant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

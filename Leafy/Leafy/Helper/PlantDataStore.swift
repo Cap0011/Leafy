@@ -21,8 +21,8 @@ class PlantDataStore: NSObject, XMLParserDelegate {
     let contentsNumber = 14663
     
     var currentElement = ""
-    var plantItems = [PlantData]()
-    var plantItem = PlantData()
+    var plantItems = [PlantInfo]()
+    var plantItem = PlantInfo()
     
     var contentNo = 0
     var nameKr = ""
@@ -47,7 +47,7 @@ class PlantDataStore: NSObject, XMLParserDelegate {
     {
         currentElement = elementName
         if (elementName == "item") {
-            plantItem = PlantData()
+            plantItem = PlantInfo()
         }
     }
     

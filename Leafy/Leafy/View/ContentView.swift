@@ -15,7 +15,7 @@ struct ContentView: View {
                 PlantDataStore.shared.loadPlantData()
             }
             .onTapGesture {
-                print(PlantDataStore.shared.plantItem)
+                print(PlantDataStore.shared.plantItems.first?.distbNm)
             }
     }
 }
