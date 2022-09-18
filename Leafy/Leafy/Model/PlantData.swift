@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Response {
-    var results: [PlantData]
-}
-
 struct PlantData {
     var cntntsNo: Int?
     var plntbneNm: String?
