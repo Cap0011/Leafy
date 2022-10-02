@@ -45,11 +45,14 @@ class Journal {
     var date = Date.now
     var weather = 0
     var isWatering = false
+    var isFertilised = false
+    var isSun = false
+    var isWind = false
     var content = ""
     var image: Image?
 }
 
 extension Journal {
-    static let journal0 = Journal(date: Date.now, weather: 0, isWatering: true, content: "오늘은 물을 줬다. 매일 똑같은 쳇바퀴를 굴리며 살아가는 나 대신 건강하고 씩씩하게 자라 주었으면 하는 마음을 담아서.", image: nil)
+    static let journal0 = Journal(date: Date.now, weather: 0, isWatering: true, content: "오늘은 물을 줬다. 건강하고 씩씩하게 자라 주었으면 하는 마음을 담아서.", image: nil)
     static let journal1 = Journal(date: Date.now, weather: 0, isWatering: false, content: "오늘은 물을 주지 않았다. 물을 주지 않아도 알아서 쑥쑥 자라는 게 기특하다.", image: nil)
 }

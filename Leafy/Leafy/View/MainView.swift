@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct MainView: View {
+    @State var plants = [Plant.flower, Plant.grass, Plant.tree]
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
                 Color("Background").ignoresSafeArea()
                 VStack(spacing: 40) {
-                    DiaryCoversView(plants: [Plant.flower, Plant.grass, Plant.tree])
+                    DiaryCoversView(plants: plants)
                     HStack(spacing: 20) {
                         Image(systemName: "pencil.circle.fill")
                             .onTapGesture {
@@ -39,7 +41,7 @@ struct MainView: View {
             .navigationTitle("")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: DiaryListView()) {
+                    NavigationLink(destination: DiaryListView(plants: plants)) {
                         Label("List", systemImage: "books.vertical")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.black)
