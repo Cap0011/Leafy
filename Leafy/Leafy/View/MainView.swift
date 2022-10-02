@@ -32,13 +32,14 @@ struct MainView: View {
                 }
             }
             .preferredColorScheme(.light)
+            .navigationTitle("")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink(destination: CalendarView()) {
-//                        Label("List", systemImage: "books.vertical")
-//                            .font(.system(size: 14, weight: .semibold))
-//                            .foregroundColor(.black)
-//                    }
+                    NavigationLink(destination: DiaryListView()) {
+                        Label("List", systemImage: "books.vertical")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.black)
+                    }
                 }
             }
         }
