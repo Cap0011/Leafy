@@ -11,7 +11,6 @@
 		C70C12EB28D73563003DF92A /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EA28D73563003DF92A /* DiaryDetailView.swift */; };
 		C70C12ED28D758D7003DF92A /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EC28D758D7003DF92A /* AddNoteView.swift */; };
 		C70C12EF28DAD76C003DF92A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EE28DAD76C003DF92A /* ImagePicker.swift */; };
-		C70C12F128DAE029003DF92A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12F028DAE029003DF92A /* CalendarView.swift */; };
 		C70C12F328DC29FC003DF92A /* Weekdays.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12F228DC29FC003DF92A /* Weekdays.swift */; };
 		C72752B528D250E300013F46 /* LeafyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752B428D250E300013F46 /* LeafyApp.swift */; };
 		C72752B728D250E300013F46 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752B628D250E300013F46 /* ContentView.swift */; };
@@ -28,7 +27,6 @@
 		C70C12EA28D73563003DF92A /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
 		C70C12EC28D758D7003DF92A /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
 		C70C12EE28DAD76C003DF92A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		C70C12F028DAE029003DF92A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		C70C12F228DC29FC003DF92A /* Weekdays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekdays.swift; sourceTree = "<group>"; };
 		C72752B128D250E300013F46 /* Leafy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leafy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72752B428D250E300013F46 /* LeafyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeafyApp.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 				C70C12E828D70978003DF92A /* MainView.swift */,
 				C70C12EA28D73563003DF92A /* DiaryDetailView.swift */,
 				C70C12EC28D758D7003DF92A /* AddNoteView.swift */,
-				C70C12F028DAE029003DF92A /* CalendarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -204,7 +201,6 @@
 				C72752B528D250E300013F46 /* LeafyApp.swift in Sources */,
 				C72752C628D2565300013F46 /* PlantInfo.swift in Sources */,
 				C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */,
-				C70C12F128DAE029003DF92A /* CalendarView.swift in Sources */,
 				C70C12ED28D758D7003DF92A /* AddNoteView.swift in Sources */,
 				C70C12EF28DAD76C003DF92A /* ImagePicker.swift in Sources */,
 				C72752CA28D25BFA00013F46 /* Plant.swift in Sources */,

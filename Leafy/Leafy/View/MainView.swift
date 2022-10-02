@@ -34,20 +34,11 @@ struct MainView: View {
             .preferredColorScheme(.light)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: CalendarView()) {
-                        Label("Calendar", systemImage: "calendar")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.black)
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        // TODO: Search
-                    } label: {
-                        Label("Search", systemImage: "magnifyingglass")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.black)
-                    }
+//                    NavigationLink(destination: CalendarView()) {
+//                        Label("List", systemImage: "books.vertical")
+//                            .font(.system(size: 14, weight: .semibold))
+//                            .foregroundColor(.black)
+//                    }
                 }
             }
         }
