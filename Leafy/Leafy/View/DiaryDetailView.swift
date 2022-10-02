@@ -10,35 +10,44 @@ import SwiftUI
 struct DiaryDetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
+    let plants = [Plant.flower, Plant.grass, Plant.tree]
     var plant: Plant
     
     var body: some View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
-            
-            VStack {
+            VStack(spacing: 40) {
                 DiaryNoteView(plant: self.plant)
+                HStack(spacing: 20) {
+                    Image(systemName: "pencil.circle.fill")
+                        .onTapGesture {
+                            // TODO: Edit
+                            print("Edit button tapped!")
+                        }
+                    Image(systemName: "trash.circle.fill")
+                        .onTapGesture {
+                            // TODO: Delete
+                            print("Delete button tapped!")
+                        }
+                    NavigationLink(destination: AddNoteView()) {
+                        Image(systemName: "plus.circle.fill")
+                    }
+                    .buttonStyle(FlatLinkStyle())
+                }
+                .font(.system(size: 44))
             }
+            .padding(.top, 60)
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    presentationMode.wrappedValue.dismiss()
-                } label: {
-                    Label("Back", systemImage: "chevron.backward")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.black)
-                }
-            }
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: AddNoteView()) {
-                    Label("Add", systemImage: "plus")
+                NavigationLink(destination: DiaryListView(plants: plants)) {
+                    Label("List", systemImage: "books.vertical")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.black)
                 }
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationTitle("")
     }
 }
 
