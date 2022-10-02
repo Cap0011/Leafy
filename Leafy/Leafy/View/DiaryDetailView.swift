@@ -98,12 +98,19 @@ struct DiaryNoteView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     if plant.journals.count > 0 && currentPage > 0 {
                         let currentJournal = plant.journals[currentPage - 1]
-                        HStack {
+                        HStack(spacing: 20) {
                             Text(formatter.string(from: currentJournal.date))
                                 .font(.system(size: 16))
-                            Image(systemName: "drop.fill")
-                                .foregroundColor(.cyan)
-                                .opacity(currentJournal.isWatering ? 0.6 : 0.0)
+                            HStack {
+                                Image(systemName: "drop.fill")
+                                    .foregroundColor(currentJournal.isWatering ? .cyan.opacity(0.6) : .gray.opacity(0.5))
+                                Image(systemName: "circle.hexagongrid.fill")
+                                    .foregroundColor(currentJournal.isFertilised ? .brown : .gray.opacity(0.5))
+                                Image(systemName: "sun.max.fill")
+                                    .foregroundColor(currentJournal.isSun ? .yellow : .gray.opacity(0.5))
+                                Image(systemName: "wind")
+                                    .foregroundColor(currentJournal.isWind ? .blue : .gray.opacity(0.5))
+                            }
                         }
                         
                         if currentJournal.image != nil {
@@ -120,7 +127,7 @@ struct DiaryNoteView: View {
                         Text(currentJournal.content)
                             .frame(width: 200, height: 50)
                             .font(.system(size: 14, weight: .medium))
-                            .lineSpacing(5)
+                            .lineSpacing(8)
                     }
                 }
                 .padding(.top, 40)
