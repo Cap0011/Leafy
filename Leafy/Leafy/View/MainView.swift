@@ -14,26 +14,27 @@ struct MainView: View {
                 Color("Background").ignoresSafeArea()
                 
                 VStack {
-                    DiariesView(plants: [Plant.flower, Plant.grass, Plant.tree])
-                        .padding(.bottom, 30)
-                    HStack(spacing: 30) {
+                    DiaryCoversView(plants: [Plant.flower, Plant.grass, Plant.tree])
+                    HStack(spacing: 20) {
                         Image(systemName: "trash.circle.fill")
                             .onTapGesture {
-                                // TODO: Remove
+                                // TODO: Delete
+                                print("Delete button tapped!")
                             }
                         Image(systemName: "plus.circle.fill")
                             .onTapGesture {
                                 // TODO: Add
+                                print("Add button tapped!")
                             }
                     }
                     .font(.system(size: 44))
+                    .offset(y: -80)
                 }
             }
+            .preferredColorScheme(.light)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        // TODO: Calendar
-                    } label: {
+                    NavigationLink(destination: CalendarView()) {
                         Label("Calendar", systemImage: "calendar")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.black)
@@ -53,22 +54,52 @@ struct MainView: View {
     }
 }
 
-struct DiariesView: View {
+struct DiaryCoversView: View {
     var plants: [Plant]
+
+    @State private var offset: CGFloat = 0
+    @State private var currentItem = 0
+    
+    private let spacing: CGFloat = 30
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 30) {
-                ForEach(plants) { plant in
-                    DiaryView(plant: plant)
+        GeometryReader { proxy in
+            HStack(spacing: self.spacing) {
+                ForEach(0..<plants.count, id: \.self) { idx in
+                    DiaryCoverView(plant: plants[idx])
+                        .frame(width: 250)
+                        .opacity(currentItem == idx ? 1.0 : 0.8)
+                        .scaleEffect(currentItem == idx ? 1.0 : 0.9)
                 }
             }
+            .offset(x: offset)
             .padding(.horizontal, 70)
+            .highPriorityGesture(
+                DragGesture()
+                    .onEnded { value in
+                        withAnimation {
+                            if value.translation.width > 0 {
+                                // Swipe to left
+                                if currentItem != 0 {
+                                    offset += (250 + self.spacing)
+                                    currentItem -= 1
+                                }
+                            } else {
+                                // Swipe to right
+                                if currentItem != plants.count - 1 {
+                                    offset -= (250 + self.spacing)
+                                    currentItem += 1
+                                }
+                            }
+                        }
+                    }
+            )
         }
+        .animation(.easeInOut, value: offset == 0)
     }
 }
 
-struct DiaryView: View {
+struct DiaryCoverView: View {
     var plant: Plant
     
     var body: some View {
@@ -78,16 +109,23 @@ struct DiaryView: View {
                 .padding(.bottom, 2)
             Text(plant.info?.distbNm ?? "식물 종류")
                 .font(.system(size: 14, weight: .medium))
-            NavigationLink(destination: Text("Diary Detail")) {
+            NavigationLink(destination: DiaryDetailView(plant: self.plant)) {
                 Image("Cover")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 360)
+                    .frame(width: 250, height: 360)
                     .padding(.top, 40)
                     .padding(.bottom, 10)
             }
+            .buttonStyle(FlatLinkStyle())
             Text("\(plant.journals.count) 페이지")
                 .font(.system(size: 14, weight: .medium))
+        }
+    }
+    
+    struct FlatLinkStyle: ButtonStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
         }
     }
 }
