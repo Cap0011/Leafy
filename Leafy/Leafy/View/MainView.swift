@@ -12,10 +12,14 @@ struct MainView: View {
         NavigationView {
             ZStack(alignment: .top) {
                 Color("Background").ignoresSafeArea()
-                
-                VStack {
+                VStack(spacing: 40) {
                     DiaryCoversView(plants: [Plant.flower, Plant.grass, Plant.tree])
                     HStack(spacing: 20) {
+                        Image(systemName: "pencil.circle.fill")
+                            .onTapGesture {
+                                // TODO: Edit
+                                print("Edit button tapped!")
+                            }
                         Image(systemName: "trash.circle.fill")
                             .onTapGesture {
                                 // TODO: Delete
@@ -28,8 +32,8 @@ struct MainView: View {
                             }
                     }
                     .font(.system(size: 44))
-                    .offset(y: -80)
                 }
+                .padding(.top, 60)
             }
             .preferredColorScheme(.light)
             .navigationTitle("")
@@ -87,6 +91,7 @@ struct DiaryCoversView: View {
                     }
             )
         }
+        .frame(height: 500)
         .animation(.easeInOut, value: offset == 0)
     }
 }
@@ -95,23 +100,25 @@ struct DiaryCoverView: View {
     var plant: Plant
     
     var body: some View {
-        VStack {
-            Text(plant.nickname)
-                .font(.system(size: 18, weight: .bold))
-                .padding(.bottom, 2)
-            Text(plant.info?.distbNm ?? "식물 종류")
-                .font(.system(size: 14, weight: .medium))
-            NavigationLink(destination: DiaryDetailView(plant: self.plant)) {
-                Image("Cover")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 250, height: 360)
-                    .padding(.top, 40)
-                    .padding(.bottom, 10)
+        VStack(spacing: 50) {
+            VStack(spacing: 10) {
+                Text(plant.nickname)
+                    .font(.system(size: 18, weight: .bold))
+                    .padding(.bottom, 2)
+                Text(plant.info?.distbNm ?? "식물 종류")
+                    .font(.system(size: 15, weight: .medium))
             }
-            .buttonStyle(FlatLinkStyle())
-            Text("\(plant.journals.count) 페이지")
-                .font(.system(size: 14, weight: .medium))
+            VStack(spacing: 20) {
+                NavigationLink(destination: DiaryDetailView(plant: self.plant)) {
+                    Image("Cover")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250)
+                }
+                .buttonStyle(FlatLinkStyle())
+                Text("\(plant.journals.count) 페이지")
+                    .font(.system(size: 14, weight: .medium))
+            }
         }
     }
     
