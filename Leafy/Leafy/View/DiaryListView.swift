@@ -31,7 +31,7 @@ struct DiaryListRow: View {
     
     var body: some View {
         HStack(spacing: 20) {
-            Image("Cover")
+            Image("Cover0")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50)

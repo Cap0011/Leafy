@@ -13,5 +13,5 @@ struct FontManager {
         static let medium = "Pretendard-Medium"
         static let semiBold = "Pretendard-SemiBold"
     }
-    static let hand = "나눔손글씨 힘내라는 말보단"
+    static let hand = "NanumHimNaeRaNeunMarBoDan"
 }

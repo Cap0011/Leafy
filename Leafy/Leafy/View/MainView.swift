@@ -47,6 +47,9 @@ struct MainView: View {
                 }
             }
         }
+        .onAppear {
+            UITextView.appearance().backgroundColor = .clear
+        }
     }
 }
 
