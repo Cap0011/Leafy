@@ -122,10 +122,17 @@ struct DiaryCoverView: View {
             }
             VStack(spacing: 20) {
                 NavigationLink(destination: DiaryDetailView(plant: self.plant)) {
-                    Image("Cover0")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 250)
+                    ZStack {
+                        Image("Cover\(plant.diaryStyle?.cover ?? 0)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 250)
+                        Image("Painting\(plant.diaryStyle?.painting ?? 0)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 150)
+                            .offset(x: 14)
+                    }
                 }
                 .buttonStyle(FlatLinkStyle())
                 Text("\(plant.journals.count) 페이지")

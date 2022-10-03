@@ -23,7 +23,6 @@ struct DiaryListView: View {
             .padding(.horizontal, 24)
             .padding(.top, 40)
         }
-        .tint(.black)
     }
 }
 
@@ -34,10 +33,17 @@ struct DiaryListRow: View {
     
     var body: some View {
         HStack(spacing: 20) {
-            Image("Cover0")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50)
+            ZStack {
+                Image("Cover\(plant.diaryStyle?.painting ?? 0)")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50)
+                Image("Painting\(plant.diaryStyle?.painting ?? 0)")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30)
+                    .offset(x: 3)
+            }
             
             VStack(alignment: .leading, spacing: 10) {
                 Text(plant.nickname)
