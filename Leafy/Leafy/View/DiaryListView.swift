@@ -21,6 +21,7 @@ struct DiaryListView: View {
                 }
             }
             .padding(.horizontal, 24)
+            .padding(.top, 40)
         }
         .tint(.black)
     }
@@ -38,9 +39,9 @@ struct DiaryListRow: View {
             
             VStack(alignment: .leading, spacing: 10) {
                 Text(plant.nickname)
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
                 Text(plant.info?.distbNm ?? "")
-                    .font(.system(size: 15, weight: .regular))
+                    .font(.custom(FontManager.Pretendard.regular, size: 15))
             }
              
             Spacer()
@@ -55,6 +56,7 @@ struct DiaryListRow: View {
                         // TODO: Delete the diary
                     }
             }
+            .font(.system(size: 18, weight: .semibold))
         }
     }
 }
