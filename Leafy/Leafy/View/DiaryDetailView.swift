@@ -15,11 +15,13 @@ struct DiaryDetailView: View {
     
     @State var isShowingActionSheet = false
     
+    @State private var isShowingSheet = false
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
             VStack {
-                DiaryNoteView(plant: self.plant)
+                DiaryNoteView(plant: self.plant, isShowingSheet: $isShowingSheet)
                     .padding(.bottom, 40)
                 HStack(spacing: 20) {
                     Image(systemName: "pencil.circle.fill")
@@ -57,11 +59,16 @@ struct DiaryDetailView: View {
             }
         }
         .navigationTitle("")
+        .sheet(isPresented: $isShowingSheet) {
+            PlantingTipView()
+        }
     }
 }
 
 struct DiaryNoteView: View {
     let plant: Plant
+    
+    @Binding var isShowingSheet: Bool
     
     var formatter: DateFormatter {
         let formatter = DateFormatter()
@@ -82,6 +89,9 @@ struct DiaryNoteView: View {
                 .padding(.horizontal, 12)
                 .font(.custom(FontManager.Pretendard.medium, size: 13))
                 .background(RoundedRectangle(cornerRadius: 16).foregroundColor(Color("Black")).frame(height: 32))
+                .onTapGesture {
+                    isShowingSheet.toggle()
+                }
             
             ZStack {
                 HStack {
