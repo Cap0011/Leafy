@@ -106,10 +106,10 @@ struct DiaryCoverView: View {
         VStack(spacing: 50) {
             VStack(spacing: 10) {
                 Text(plant.nickname)
-                    .font(.system(size: 18, weight: .bold))
+                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
                     .padding(.bottom, 2)
                 Text(plant.info?.distbNm ?? "식물 종류")
-                    .font(.system(size: 15, weight: .medium))
+                    .font(.custom(FontManager.Pretendard.medium, size: 15))
             }
             VStack(spacing: 20) {
                 NavigationLink(destination: DiaryDetailView(plant: self.plant)) {
@@ -120,7 +120,7 @@ struct DiaryCoverView: View {
                 }
                 .buttonStyle(FlatLinkStyle())
                 Text("\(plant.journals.count) 페이지")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.custom(FontManager.Pretendard.medium, size: 15))
             }
         }
     }
