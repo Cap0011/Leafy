@@ -11,7 +11,6 @@
 		C70C12EB28D73563003DF92A /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EA28D73563003DF92A /* DiaryDetailView.swift */; };
 		C70C12ED28D758D7003DF92A /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EC28D758D7003DF92A /* AddNoteView.swift */; };
 		C70C12EF28DAD76C003DF92A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EE28DAD76C003DF92A /* ImagePicker.swift */; };
-		C70C12F328DC29FC003DF92A /* Weekdays.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12F228DC29FC003DF92A /* Weekdays.swift */; };
 		C72752B528D250E300013F46 /* LeafyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752B428D250E300013F46 /* LeafyApp.swift */; };
 		C72752B728D250E300013F46 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752B628D250E300013F46 /* ContentView.swift */; };
 		C72752B928D250E400013F46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72752B828D250E400013F46 /* Assets.xcassets */; };
@@ -22,6 +21,7 @@
 		C72752D228D63B3100013F46 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72752D128D63B3100013F46 /* Secret.swift */; };
 		C79E139D28E9B0990010C4BA /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E139C28E9B0990010C4BA /* DiaryListView.swift */; };
 		C79E139F28E9C0590010C4BA /* FlatLinkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */; };
+		C79E13A128E9D2EB0010C4BA /* MyDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E13A028E9D2EB0010C4BA /* MyDatePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,6 @@
 		C70C12EA28D73563003DF92A /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
 		C70C12EC28D758D7003DF92A /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
 		C70C12EE28DAD76C003DF92A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		C70C12F228DC29FC003DF92A /* Weekdays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekdays.swift; sourceTree = "<group>"; };
 		C72752B128D250E300013F46 /* Leafy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leafy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72752B428D250E300013F46 /* LeafyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeafyApp.swift; sourceTree = "<group>"; };
 		C72752B628D250E300013F46 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -42,6 +41,7 @@
 		C72752D128D63B3100013F46 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		C79E139C28E9B0990010C4BA /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkStyle.swift; sourceTree = "<group>"; };
+		C79E13A028E9D2EB0010C4BA /* MyDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDatePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +98,6 @@
 			children = (
 				C72752C528D2565300013F46 /* PlantInfo.swift */,
 				C72752C928D25BFA00013F46 /* Plant.swift */,
-				C70C12F228DC29FC003DF92A /* Weekdays.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -111,6 +110,7 @@
 				C70C12EA28D73563003DF92A /* DiaryDetailView.swift */,
 				C70C12EC28D758D7003DF92A /* AddNoteView.swift */,
 				C79E139C28E9B0990010C4BA /* DiaryListView.swift */,
+				C79E13A028E9D2EB0010C4BA /* MyDatePicker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -202,8 +202,8 @@
 			files = (
 				C72752B728D250E300013F46 /* ContentView.swift in Sources */,
 				C70C12E928D70978003DF92A /* MainView.swift in Sources */,
-				C70C12F328DC29FC003DF92A /* Weekdays.swift in Sources */,
 				C72752D228D63B3100013F46 /* Secret.swift in Sources */,
+				C79E13A128E9D2EB0010C4BA /* MyDatePicker.swift in Sources */,
 				C72752B528D250E300013F46 /* LeafyApp.swift in Sources */,
 				C72752C628D2565300013F46 /* PlantInfo.swift in Sources */,
 				C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */,
