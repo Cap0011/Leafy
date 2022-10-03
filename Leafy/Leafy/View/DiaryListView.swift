@@ -30,6 +30,8 @@ struct DiaryListView: View {
 struct DiaryListRow: View {
     let plant: Plant
     
+    @State var isShowingActionSheet = false
+    
     var body: some View {
         HStack(spacing: 20) {
             Image("Cover0")
@@ -52,8 +54,15 @@ struct DiaryListRow: View {
                         // TODO: Edit the diary
                     }
                 Image(systemName: "trash")
+                    .confirmationDialog("", isPresented: $isShowingActionSheet) {
+                        Button("다이어리 삭제", role: .destructive) {
+                            // TODO: Delete the diary
+                            print("Delete selected!")
+                        }
+                        Button("취소", role: .cancel) {}
+                    }
                     .onTapGesture {
-                        // TODO: Delete the diary
+                        isShowingActionSheet.toggle()
                     }
             }
             .font(.system(size: 18, weight: .semibold))

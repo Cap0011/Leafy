@@ -9,7 +9,6 @@ import Foundation
 
 class PlantInfo {
     init() {
-        
     }
     init(contentNo: Int?, nameKr: String?, nameEng: String?, nameStudy: String?) {
         self.cntntsNo = contentNo

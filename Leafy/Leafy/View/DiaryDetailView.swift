@@ -13,11 +13,14 @@ struct DiaryDetailView: View {
     let plants = [Plant.flower, Plant.grass, Plant.tree]
     var plant: Plant
     
+    @State var isShowingActionSheet = false
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
-            VStack(spacing: 40) {
+            VStack {
                 DiaryNoteView(plant: self.plant)
+                    .padding(.bottom, 40)
                 HStack(spacing: 20) {
                     Image(systemName: "pencil.circle.fill")
                         .onTapGesture {
@@ -26,8 +29,14 @@ struct DiaryDetailView: View {
                         }
                     Image(systemName: "trash.circle.fill")
                         .onTapGesture {
-                            // TODO: Delete
-                            print("Delete button tapped!")
+                            isShowingActionSheet.toggle()
+                        }
+                        .confirmationDialog("", isPresented: $isShowingActionSheet) {
+                            Button("페이지 삭제", role: .destructive) {
+                                // TODO: Delete
+                                print("Delete selected!")
+                            }
+                            Button("취소", role: .cancel) {}
                         }
                     NavigationLink(destination: AddNoteView()) {
                         Image(systemName: "plus.circle.fill")
@@ -36,7 +45,7 @@ struct DiaryDetailView: View {
                 }
                 .font(.system(size: 44))
             }
-            .padding(.top, 60)
+            .padding(.top, 50)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -65,52 +74,66 @@ struct DiaryNoteView: View {
     var body: some View {
         VStack {
             Text(plant.nickname)
-                .font(.system(size: 18, weight: .bold))
-                .padding(.bottom, 2)
-            Text(plant.info?.distbNm ?? "식물 종류")
-                .font(.system(size: 14, weight: .medium))
+                .font(.custom(FontManager.Pretendard.semiBold, size: 18))
+                .padding(.bottom, 24)
+            
+            Text(plant.info?.distbNm != nil ? "\(plant.info!.distbNm!) 관리 TIP" : "")
+                .foregroundColor(.white)
+                .padding(.horizontal, 12)
+                .font(.custom(FontManager.Pretendard.medium, size: 13))
+                .background(RoundedRectangle(cornerRadius: 16).foregroundColor(Color("Black")).frame(height: 32))
+            
             ZStack {
                 HStack {
                     Image("Note")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 360)
-                        .padding(.top, 40)
-                        .padding(.bottom, 10)
+                        .padding(.top, 24)
 
                     Spacer()
                 }
                 if currentPage > 1 {
                     Image(systemName: "arrow.backward")
-                        .offset(x: -(UIScreen.main.bounds.width / 2 - 20))
+                        .font(.system(size: 18, weight: .semibold))
+                        .offset(x: -(UIScreen.main.bounds.width / 2 - 24))
                         .onTapGesture {
-                            currentPage -= 1
+                            withAnimation {
+                                currentPage -= 1
+                            }
                         }
                 }
                 if currentPage != plant.journals.count {
                     Image(systemName: "arrow.forward")
-                        .offset(x: (UIScreen.main.bounds.width / 2 - 20))
+                        .font(.system(size: 18, weight: .semibold))
+                        .offset(x: (UIScreen.main.bounds.width / 2 - 24))
                         .onTapGesture {
-                            currentPage += 1
+                            withAnimation {
+                                currentPage += 1
+                            }
                         }
                 }
                 
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 8) {
                     if plant.journals.count > 0 && currentPage > 0 {
                         let currentJournal = plant.journals[currentPage - 1]
                         HStack(spacing: 20) {
                             Text(formatter.string(from: currentJournal.date))
-                                .font(.system(size: 16))
+                                .font(.custom(FontManager.hand, size: 18))
                             HStack {
                                 Image(systemName: "drop.fill")
-                                    .foregroundColor(currentJournal.isWatering ? .cyan.opacity(0.6) : .gray.opacity(0.5))
-                                Image(systemName: "circle.hexagongrid.fill")
-                                    .foregroundColor(currentJournal.isFertilised ? .brown : .gray.opacity(0.5))
+                                    .foregroundColor(currentJournal.isWatering ? Color("Water") : Color("Unselected"))
+                                if currentJournal.isFertilised {
+                                    Image("Fertiliser-selected")
+                                } else {
+                                    Image("Fertiliser-unselected")
+                                }
                                 Image(systemName: "sun.max.fill")
-                                    .foregroundColor(currentJournal.isSun ? .yellow : .gray.opacity(0.5))
+                                    .foregroundColor(currentJournal.isSun ? Color("Sun") : Color("Unselected"))
                                 Image(systemName: "wind")
-                                    .foregroundColor(currentJournal.isWind ? .blue : .gray.opacity(0.5))
+                                    .foregroundColor(currentJournal.isWind ? Color("Wind") : Color("Unselected"))
                             }
+                            .offset(y: 3)
                         }
                         
                         if currentJournal.image != nil {
@@ -124,18 +147,31 @@ struct DiaryNoteView: View {
                                 .frame(width: 200, height: 200)
                                 .scaledToFit()
                         }
-                        Text(currentJournal.content)
-                            .frame(width: 200, height: 50)
-                            .font(.system(size: 14, weight: .medium))
-                            .lineSpacing(8)
+                        ZStack {
+                            VStack(spacing: 30) {
+                                Rectangle()
+                                    .frame(width: 200, height: 1)
+                                    .foregroundColor(Color("Unselected"))
+                                Rectangle()
+                                    .frame(width: 200, height: 1)
+                                    .foregroundColor(Color("Unselected"))
+                            }
+                            .padding(.top, 32)
+                            Text(currentJournal.content)
+                                .frame(width: 200, height: 50)
+                                .font(.custom(FontManager.hand, size: 18))
+                                .lineSpacing(8)
+                        }
                     }
                 }
-                .padding(.top, 40)
+                .padding(.top)
             }
             .font(.system(size: 18, weight: .semibold))
             Text("\(currentPage)/\(plant.journals.count) 페이지")
-                .font(.system(size: 14, weight: .medium))
+                .font(.custom(FontManager.Pretendard.medium, size: 15))
+                .padding(.top, 20)
         }
+        .foregroundColor(Color("Black"))
         .onAppear {
             if plant.journals.count > 0 { currentPage = 1 }
         }

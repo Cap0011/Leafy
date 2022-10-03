@@ -10,6 +10,8 @@ import SwiftUI
 struct MainView: View {
     @State var plants = [Plant.flower, Plant.grass, Plant.tree]
     
+    @State var isShowingActionSheet = false
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
@@ -23,13 +25,20 @@ struct MainView: View {
                                 print("Edit button tapped!")
                             }
                         Image(systemName: "trash.circle.fill")
+                            .confirmationDialog("", isPresented: $isShowingActionSheet) {
+                                Button("다이어리 삭제", role: .destructive) {
+                                    // TODO: Delete the diary
+                                    print("Delete selected!")
+                                }
+                                Button("취소", role: .cancel) {}
+                            }
                             .onTapGesture {
-                                // TODO: Delete
-                                print("Delete button tapped!")
+                                isShowingActionSheet.toggle()
                             }
                         NavigationLink(destination: AddDiaryView()) {
                             Image(systemName: "plus.circle.fill")
                         }
+                        .buttonStyle(FlatLinkStyle())
                     }
                     .font(.system(size: 44))
                 }
