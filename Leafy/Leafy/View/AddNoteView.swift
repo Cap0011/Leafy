@@ -67,6 +67,7 @@ struct AddNoteView: View {
                                     .frame(height: 46)
                                 
                                 DatePicker("", selection: $date, in: ...Date.now, displayedComponents: .date).labelsHidden()
+                                    .opacity(0.1)
                             }
 
                             Image(systemName: "chevron.down")
@@ -115,6 +116,7 @@ struct AddNoteView: View {
                 } label: {
                     Label("Cancel", systemImage: "xmark")
                         .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(Color("Black"))
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -124,7 +126,7 @@ struct AddNoteView: View {
                 } label: {
                     Label("Save", systemImage: "checkmark")
                         .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.green)
+                        .foregroundColor(Color("Green"))
                 }
             }
         }

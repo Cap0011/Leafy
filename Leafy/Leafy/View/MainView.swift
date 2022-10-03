@@ -27,11 +27,9 @@ struct MainView: View {
                                 // TODO: Delete
                                 print("Delete button tapped!")
                             }
-                        Image(systemName: "plus.circle.fill")
-                            .onTapGesture {
-                                // TODO: Add
-                                print("Add button tapped!")
-                            }
+                        NavigationLink(destination: AddDiaryView()) {
+                            Image(systemName: "plus.circle.fill")
+                        }
                     }
                     .font(.system(size: 44))
                 }
@@ -112,7 +110,7 @@ struct DiaryCoverView: View {
             }
             VStack(spacing: 20) {
                 NavigationLink(destination: DiaryDetailView(plant: self.plant)) {
-                    Image("Cover")
+                    Image("Cover0")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 250)
