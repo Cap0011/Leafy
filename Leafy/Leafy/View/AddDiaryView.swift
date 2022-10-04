@@ -103,7 +103,7 @@ struct NicknameTextField: View {
     
     var body: some View {
         ZStack {
-            if nickname.isEmpty {
+            if nickname.isEmpty && !isFocused {
                 HStack(spacing: 4) {
                     Text("식물 이름")
                     Image(systemName: "pencil")
