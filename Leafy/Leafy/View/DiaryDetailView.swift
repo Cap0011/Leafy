@@ -60,7 +60,12 @@ struct DiaryDetailView: View {
         }
         .navigationTitle("")
         .sheet(isPresented: $isShowingSheet) {
-            PlantingTipView()
+            if #available(iOS 16.0, *) {
+                PlantingTipView()
+                    .presentationDetents([.fraction(0.75)])
+            } else {
+                PlantingTipView()
+            }
         }
     }
 }
@@ -108,9 +113,7 @@ struct DiaryNoteView: View {
                         .font(.system(size: 18, weight: .semibold))
                         .offset(x: -(UIScreen.main.bounds.width / 2 - 24))
                         .onTapGesture {
-                            withAnimation {
-                                currentPage -= 1
-                            }
+                            currentPage -= 1
                         }
                 }
                 if currentPage != plant.journals.count {
@@ -118,9 +121,7 @@ struct DiaryNoteView: View {
                         .font(.system(size: 18, weight: .semibold))
                         .offset(x: (UIScreen.main.bounds.width / 2 - 24))
                         .onTapGesture {
-                            withAnimation {
-                                currentPage += 1
-                            }
+                            currentPage += 1
                         }
                 }
                 

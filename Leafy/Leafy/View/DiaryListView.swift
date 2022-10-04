@@ -15,14 +15,20 @@ struct DiaryListView: View {
             Color("Background").ignoresSafeArea()
             VStack {
                 ForEach(plants) { plant in
-                    DiaryListRow(plant: plant)
-                        .padding(.vertical, 20)
+                    NavigationLink(destination: DiaryDetailView(plant: plant)) {
+                        DiaryListRow(plant: plant)
+                            .padding(.vertical, 20)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(FlatLinkStyle())
+                    
                     Divider()
                 }
             }
             .padding(.horizontal, 24)
             .padding(.top, 40)
         }
+        .navigationTitle("")
     }
 }
 
