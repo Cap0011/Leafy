@@ -178,6 +178,23 @@ struct DiaryNoteView: View {
                 .padding(.top)
             }
             .font(.system(size: 18, weight: .semibold))
+            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                .onEnded({ value in
+                    if value.translation.width < 0 {
+                        // Show next page
+                        if currentPage != plant.journals.count {
+                            currentPage += 1
+                        }
+                    }
+                    
+                    if value.translation.width > 0 {
+                        // Show previous page
+                        if currentPage > 1 {
+                            currentPage -= 1
+                        }
+                    }
+                }))
+            
             Text("\(currentPage)/\(plant.journals.count) 페이지")
                 .font(.custom(FontManager.Pretendard.medium, size: 15))
                 .padding(.top, 20)
