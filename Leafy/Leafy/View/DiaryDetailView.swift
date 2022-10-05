@@ -75,12 +75,6 @@ struct DiaryNoteView: View {
     
     @Binding var isShowingSheet: Bool
     
-    var formatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "y.M.d"
-        return formatter
-    }
-    
     @State var currentPage = 0
     
     var body: some View {
@@ -129,7 +123,7 @@ struct DiaryNoteView: View {
                     if plant.journals.count > 0 && currentPage > 0 {
                         let currentJournal = plant.journals[currentPage - 1]
                         HStack(spacing: 20) {
-                            Text(formatter.string(from: currentJournal.date))
+                            Text(Utils.formatter.string(from: currentJournal.date))
                                 .font(.custom(FontManager.hand, size: 18))
                             HStack {
                                 Image(systemName: "drop.fill")

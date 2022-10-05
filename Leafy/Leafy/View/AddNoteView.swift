@@ -25,12 +25,6 @@ struct AddNoteView: View {
     @State private var date = Date()
     
     @FocusState var inFocus: Int?
-    
-    var formatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "y년 M월 d일"
-        return formatter
-    }
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -82,7 +76,7 @@ struct AddNoteView: View {
                                             .font(.system(size: 16, weight: .semibold))
                                             .padding(.trailing, 16)
                                     }
-                                    Text(formatter.string(from: date))
+                                    Text(Utils.formatter.string(from: date))
                                         .font(.custom(FontManager.hand, size: 20))
                                 }
                                 .userInteractionDisabled()

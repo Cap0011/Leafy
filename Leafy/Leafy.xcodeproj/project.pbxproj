@@ -28,6 +28,7 @@
 		C79E13AE28EB1B240010C4BA /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E13AD28EB1B240010C4BA /* FontManager.swift */; };
 		C79E13B028EB3E180010C4BA /* NanumHimNaeRaNeunMarBoDan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C79E13AF28EB3E180010C4BA /* NanumHimNaeRaNeunMarBoDan.ttf */; };
 		C79E13B228EB61350010C4BA /* PlantingTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E13B128EB61350010C4BA /* PlantingTipView.swift */; };
+		C79E13B428EDEAD90010C4BA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E13B328EDEAD90010C4BA /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		C79E13AD28EB1B240010C4BA /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		C79E13AF28EB3E180010C4BA /* NanumHimNaeRaNeunMarBoDan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumHimNaeRaNeunMarBoDan.ttf; sourceTree = "<group>"; };
 		C79E13B128EB61350010C4BA /* PlantingTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantingTipView.swift; sourceTree = "<group>"; };
+		C79E13B328EDEAD90010C4BA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				C72752D128D63B3100013F46 /* Secret.swift */,
 				C70C12EE28DAD76C003DF92A /* ImagePicker.swift */,
 				C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */,
+				C79E13B328EDEAD90010C4BA /* Utils.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				C72752C628D2565300013F46 /* PlantInfo.swift in Sources */,
 				C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */,
 				C70C12ED28D758D7003DF92A /* AddNoteView.swift in Sources */,
+				C79E13B428EDEAD90010C4BA /* Utils.swift in Sources */,
 				C79E13A328EB169A0010C4BA /* AddDiaryView.swift in Sources */,
 				C70C12EF28DAD76C003DF92A /* ImagePicker.swift in Sources */,
 				C79E13AE28EB1B240010C4BA /* FontManager.swift in Sources */,
