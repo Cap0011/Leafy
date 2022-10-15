@@ -26,9 +26,9 @@ class Plant: Identifiable {
 }
 
 extension Plant {
-    static let flower = Plant(nickname: "백백이", info: PlantInfo(contentNo: 0, nameKr: "동백", nameEng: "flower", nameStudy: "동백"), journals: [Journal.journal0, Journal.journal1, Journal.journal0, Journal.journal1, Journal.journal0], diaryStyle: DiaryStyle(coverNumber: 0, paintingNumber: 0))
-    static let tree = Plant(nickname: "고무고무", info: PlantInfo(contentNo: 1, nameKr: "고무나무", nameEng: "tree", nameStudy: "고무나무"), journals: [], diaryStyle: DiaryStyle(coverNumber: 2, paintingNumber: 4))
-    static let grass = Plant(nickname: "풀풀이", info: PlantInfo(contentNo: 2, nameKr: "이름모를", nameEng: "grass", nameStudy: "들풀"), journals: [], diaryStyle: DiaryStyle(coverNumber: 5, paintingNumber: 2))
+    static let flower = Plant(nickname: "백백이", info: PlantInfo(contentNo: 1, plantName: "동백", humidity: "70%", fertiliser: "비료 필요", springWater: "자주", summerWater: "흙 촉촉", autumnWater: "흙 건조", winterWater: "흙 촉촉", temperature: "13 ~ 16"), journals: [Journal.journal0, Journal.journal1, Journal.journal0, Journal.journal1, Journal.journal0], diaryStyle: DiaryStyle(coverNumber: 0, paintingNumber: 0))
+    static let tree = Plant(nickname: "고무고무", info: PlantInfo(contentNo: 1, plantName: "고무나무", humidity: "70%", fertiliser: "비료 필요", springWater: "자주", summerWater: "흙 촉촉", autumnWater: "흙 건조", winterWater: "흙 촉촉", temperature: "13 ~ 16"), journals: [], diaryStyle: DiaryStyle(coverNumber: 2, paintingNumber: 4))
+    static let grass = Plant(nickname: "풀풀이", info: PlantInfo(contentNo: 1, plantName: "들풀", humidity: "70%", fertiliser: "비료 필요", springWater: "자주", summerWater: "흙 촉촉", autumnWater: "흙 건조", winterWater: "흙 촉촉", temperature: "13 ~ 16"), journals: [], diaryStyle: DiaryStyle(coverNumber: 5, paintingNumber: 2))
 }
 
 class Journal {

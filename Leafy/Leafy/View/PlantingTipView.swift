@@ -30,7 +30,7 @@ struct PlantingTipView: View {
                 InfoCardView(iconImage: Image(systemName: "humidity.fill"), color: Color("Water"), title: "습도", info: humidity)
             }
             HStack(spacing: 16) {
-                InfoCardView(iconImage: Image(systemName: "sun.max.fill"), color: Color("Temperature"), title: "필요 광도", info: sunlight)
+                InfoCardView(iconImage: Image(systemName: "sun.max.fill"), color: Color("Sun"), title: "필요 광도", info: sunlight)
                 InfoCardView(iconImage: Image("Fertiliser-selected"), color: .black, title: "비료", info: fertiliser)
             }
             ZStack(alignment: .leading) {

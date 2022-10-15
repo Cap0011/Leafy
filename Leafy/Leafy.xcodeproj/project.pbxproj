@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C701B4BF28FB31B900C94DE3 /* PlantListDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701B4BE28FB31B900C94DE3 /* PlantListDataStore.swift */; };
 		C70C12E928D70978003DF92A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12E828D70978003DF92A /* MainView.swift */; };
 		C70C12EB28D73563003DF92A /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EA28D73563003DF92A /* DiaryDetailView.swift */; };
 		C70C12ED28D758D7003DF92A /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EC28D758D7003DF92A /* AddNoteView.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C701B4BE28FB31B900C94DE3 /* PlantListDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantListDataStore.swift; sourceTree = "<group>"; };
 		C70C12E828D70978003DF92A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C70C12EA28D73563003DF92A /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
 		C70C12EC28D758D7003DF92A /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				C72752CC28D25E7300013F46 /* PlantDataStore.swift */,
+				C701B4BE28FB31B900C94DE3 /* PlantListDataStore.swift */,
 				C72752D128D63B3100013F46 /* Secret.swift */,
 				C70C12EE28DAD76C003DF92A /* ImagePicker.swift */,
 				C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */,
@@ -234,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C72752B728D250E300013F46 /* ContentView.swift in Sources */,
+				C701B4BF28FB31B900C94DE3 /* PlantListDataStore.swift in Sources */,
 				C70C12E928D70978003DF92A /* MainView.swift in Sources */,
 				C72752D228D63B3100013F46 /* Secret.swift in Sources */,
 				C72752B528D250E300013F46 /* LeafyApp.swift in Sources */,

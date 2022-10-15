@@ -83,7 +83,7 @@ struct DiaryNoteView: View {
                 .font(.custom(FontManager.Pretendard.semiBold, size: 18))
                 .padding(.bottom, 24)
             
-            Text(plant.info?.distbNm != nil ? "\(plant.info!.distbNm!) 관리 TIP" : "")
+            Text(plant.info?.plantName != nil ? "\(plant.info!.plantName!) 관리 TIP" : "")
                 .foregroundColor(.white)
                 .padding(.horizontal, 12)
                 .font(.custom(FontManager.Pretendard.medium, size: 13))

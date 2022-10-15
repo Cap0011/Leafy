@@ -54,7 +54,7 @@ struct DiaryListRow: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text(plant.nickname)
                     .font(.custom(FontManager.Pretendard.semiBold, size: 18))
-                Text(plant.info?.distbNm ?? "")
+                Text(plant.info?.plantName ?? "")
                     .font(.custom(FontManager.Pretendard.regular, size: 15))
             }
              

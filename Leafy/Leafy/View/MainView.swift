@@ -117,7 +117,7 @@ struct DiaryCoverView: View {
                 Text(plant.nickname)
                     .font(.custom(FontManager.Pretendard.semiBold, size: 18))
                     .padding(.bottom, 2)
-                Text(plant.info?.distbNm ?? "식물 종류")
+                Text(plant.info?.plantName ?? "식물 종류")
                     .font(.custom(FontManager.Pretendard.medium, size: 15))
             }
             VStack(spacing: 20) {
