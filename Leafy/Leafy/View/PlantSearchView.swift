@@ -144,6 +144,7 @@ struct queryRow: View {
                 .padding(.vertical, 8)
             Spacer()
         }
+        .contentShape(Rectangle())
         Divider()
     }
 }

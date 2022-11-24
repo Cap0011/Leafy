@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MainView: View {
     @Environment(\.managedObjectContext) var context
-        
+    
+    @State var selectedDiary: FetchedResults<Diary>.Element?
     @State var isShowingActionSheet = false
     
     var body: some View {
@@ -17,24 +18,24 @@ struct MainView: View {
             ZStack(alignment: .top) {
                 Color("Background").ignoresSafeArea()
                 VStack(spacing: 40) {
-                    DiaryCoversView()
+                    DiaryCoversView(currentDiary: $selectedDiary)
                     HStack(spacing: 20) {
-                        Image(systemName: "pencil.circle.fill")
-                            .onTapGesture {
-                                // TODO: Edit
-                                print("Edit button tapped!")
+                        if let selectedDiary {
+                            NavigationLink(destination: EditDiaryView(diary: selectedDiary)) {
+                                Image(systemName: "pencil.circle.fill")
                             }
-                        Image(systemName: "trash.circle.fill")
-                            .confirmationDialog("", isPresented: $isShowingActionSheet) {
-                                Button("다이어리 삭제", role: .destructive) {
-                                    // TODO: Delete the diary
-                                    print("Delete selected!")
+                            Image(systemName: "trash.circle.fill")
+                                .confirmationDialog("", isPresented: $isShowingActionSheet) {
+                                    Button("다이어리 삭제", role: .destructive) {
+                                        // TODO: Delete the diary
+                                        print("Delete selected!")
+                                    }
+                                    Button("취소", role: .cancel) {}
                                 }
-                                Button("취소", role: .cancel) {}
-                            }
-                            .onTapGesture {
-                                isShowingActionSheet.toggle()
-                            }
+                                .onTapGesture {
+                                    isShowingActionSheet.toggle()
+                                }
+                        }
                         NavigationLink(destination: AddDiaryView()) {
                             Image(systemName: "plus.circle.fill")
                         }
@@ -60,13 +61,25 @@ struct MainView: View {
             UITextView.appearance().backgroundColor = .clear
         }
     }
+    
+    func saveContext() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving managed object context: \(error)")
+        }
+    }
 }
 
 struct DiaryCoversView: View {
+    @Environment(\.managedObjectContext) var context
+    
     @FetchRequest(
         entity: Diary.entity(),
         sortDescriptors: []
     ) var diaries: FetchedResults<Diary>
+    
+    @Binding var currentDiary: FetchedResults<Diary>.Element?
 
     @State private var offset: CGFloat = 0
     @State private var currentItem = 0
@@ -82,6 +95,14 @@ struct DiaryCoversView: View {
                         .opacity(currentItem == idx ? 1.0 : 0.8)
                         .scaleEffect(currentItem == idx ? 1.0 : 0.9)
                 }
+            }
+            .onAppear {
+                if diaries.count > 0 {
+                    currentDiary = diaries[currentItem]
+                }
+            }
+            .onChange(of: currentItem) { idx in
+                currentDiary = diaries[currentItem]
             }
             .offset(x: offset)
             .padding(.horizontal, 70)
@@ -112,8 +133,8 @@ struct DiaryCoversView: View {
 }
 
 struct DiaryCoverView: View {
-    var diary: Diary
-    
+    @ObservedObject var diary: Diary
+
     var body: some View {
         VStack(spacing: 50) {
             VStack(spacing: 10) {

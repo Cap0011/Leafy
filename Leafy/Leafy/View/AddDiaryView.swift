@@ -76,110 +76,6 @@ struct AddDiaryView: View {
         }
     }
     
-    struct SearchbarEntryView: View {
-        @Binding var plantName: String
-        @Binding var contentsNo: Int
-        
-        var body: some View {
-            NavigationLink(destination: PlantSearchView(plantName: $plantName, contentsNumber: $contentsNo)) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 23)
-                        .foregroundColor(Color("SearchbarBackground"))
-                        .frame(height: 46)
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(Color("GreyText"))
-                        Spacer()
-                    }
-                    .padding(.leading, 16)
-                    if plantName.isEmpty {
-                        Text("어떤 식물을 기록하시나요?")
-                            .font(.custom(FontManager.Pretendard.regular, size: 15))
-                            .foregroundColor(Color("GreyText"))
-                    } else {
-                        Text(plantName)
-                            .font(.custom(FontManager.Pretendard.regular, size: 18))
-                            .foregroundColor(Color("Black"))
-                    }
-                }
-            }
-        }
-    }
-
-    struct NicknameTextField: View {
-        @Binding var nickname: String
-        @FocusState var isFocused: Bool
-        
-        var body: some View {
-            ZStack {
-                if nickname.isEmpty && !isFocused {
-                    Text("다이어리")
-                        .underline(true)
-                        .foregroundColor(Color("GreyText"))
-                        .font(.custom(FontManager.Pretendard.semiBold, size: 18))
-                        .onTapGesture {
-                            isFocused = true
-                        }
-                }
-                TextField("", text: $nickname)
-                    .fixedSize()
-                    .focused($isFocused)
-                    .foregroundColor(Color("Black"))
-                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
-            }
-        }
-    }
-
-    struct DiaryCoverImage: View {
-        let style: Int
-        let painting: Int
-        
-        var body: some View {
-            ZStack {
-                Image("Cover\(style)")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 196)
-                Image("Painting\(painting)")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 110)
-                    .offset(x: 7)
-            }
-        }
-    }
-
-    struct DiaryCustomScrollView: View {
-        @Binding var number: Int
-        
-        let title: String
-        let imageName: String
-        let count: Int
-        let spacing: CGFloat
-        
-        var body: some View {
-            VStack(alignment: .leading, spacing: 10) {
-                Text(title)
-                    .font(.custom(FontManager.Pretendard.medium, size: 15))
-                    .padding(.leading, 24)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: spacing) {
-                        ForEach(0..<count, id: \.self) { idx in
-                            Image("\(imageName)\(idx)")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 64)
-                                .onTapGesture {
-                                    number = idx
-                                }
-                        }
-                    }
-                    .padding(.horizontal, 24)
-                }
-            }
-        }
-    }
-    
     func saveContext() {
         do {
             try context.save()
@@ -198,6 +94,110 @@ struct AddDiaryView: View {
         newDiary.paintingNo = Int64(paintingNo)
         
         saveContext()
+    }
+}
+
+struct SearchbarEntryView: View {
+    @Binding var plantName: String
+    @Binding var contentsNo: Int
+    
+    var body: some View {
+        NavigationLink(destination: PlantSearchView(plantName: $plantName, contentsNumber: $contentsNo)) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 23)
+                    .foregroundColor(Color("SearchbarBackground"))
+                    .frame(height: 46)
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(Color("GreyText"))
+                    Spacer()
+                }
+                .padding(.leading, 16)
+                if plantName.isEmpty {
+                    Text("어떤 식물을 기록하시나요?")
+                        .font(.custom(FontManager.Pretendard.regular, size: 15))
+                        .foregroundColor(Color("GreyText"))
+                } else {
+                    Text(plantName)
+                        .font(.custom(FontManager.Pretendard.regular, size: 18))
+                        .foregroundColor(Color("Black"))
+                }
+            }
+        }
+    }
+}
+
+struct NicknameTextField: View {
+    @Binding var nickname: String
+    @FocusState var isFocused: Bool
+    
+    var body: some View {
+        ZStack {
+            if nickname.isEmpty && !isFocused {
+                Text("다이어리")
+                    .underline(true)
+                    .foregroundColor(Color("GreyText"))
+                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
+                    .onTapGesture {
+                        isFocused = true
+                    }
+            }
+            TextField("", text: $nickname)
+                .fixedSize()
+                .focused($isFocused)
+                .foregroundColor(Color("Black"))
+                .font(.custom(FontManager.Pretendard.semiBold, size: 18))
+        }
+    }
+}
+
+struct DiaryCoverImage: View {
+    let style: Int
+    let painting: Int
+    
+    var body: some View {
+        ZStack {
+            Image("Cover\(style)")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 196)
+            Image("Painting\(painting)")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 110)
+                .offset(x: 7)
+        }
+    }
+}
+
+struct DiaryCustomScrollView: View {
+    @Binding var number: Int
+    
+    let title: String
+    let imageName: String
+    let count: Int
+    let spacing: CGFloat
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title)
+                .font(.custom(FontManager.Pretendard.medium, size: 15))
+                .padding(.leading, 24)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: spacing) {
+                    ForEach(0..<count, id: \.self) { idx in
+                        Image("\(imageName)\(idx)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 64)
+                            .onTapGesture {
+                                number = idx
+                            }
+                    }
+                }
+                .padding(.horizontal, 24)
+            }
+        }
     }
 }
 

@@ -36,7 +36,7 @@ struct DiaryListView: View {
 }
 
 struct DiaryListRow: View {
-    let diary: Diary
+    @ObservedObject var diary: Diary
     
     @State var isShowingActionSheet = false
     
@@ -64,10 +64,9 @@ struct DiaryListRow: View {
             Spacer()
             
             HStack(spacing: 16) {
-                Image(systemName: "pencil")
-                    .onTapGesture {
-                        // TODO: Edit the diary
-                    }
+                NavigationLink(destination: EditDiaryView(diary: diary)) {
+                    Image(systemName: "pencil")
+                }
                 Image(systemName: "trash")
                     .confirmationDialog("", isPresented: $isShowingActionSheet) {
                         Button("다이어리 삭제", role: .destructive) {
