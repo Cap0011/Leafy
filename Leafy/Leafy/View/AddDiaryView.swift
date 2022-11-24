@@ -10,7 +10,8 @@ import SwiftUI
 struct AddDiaryView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State private var searchText = ""
+    @State private var plantName = ""
+    @State private var contentsNumber = 0
     
     @State private var nickname = ""
     
@@ -22,7 +23,7 @@ struct AddDiaryView: View {
             Color("Background").ignoresSafeArea()
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 24) {
-                    Searchbar(text: $searchText)
+                    SearchbarEntryView(plantName: $plantName, contentsNo: $contentsNumber)
                         .padding(.horizontal, 24)
                     NicknameTextField(nickname: $nickname)
                     DiaryCoverImage(style: styleNumber, painting: paintingNumber)
@@ -55,44 +56,37 @@ struct AddDiaryView: View {
                 }
             }
         }
+        .navigationBarTitle("")
         .navigationBarBackButtonHidden(true)
     }
 }
 
-struct Searchbar: View {
-    @Binding var text: String
-    
-    @FocusState var isFocused: Bool
+struct SearchbarEntryView: View {
+    @Binding var plantName: String
+    @Binding var contentsNo: Int
     
     var body: some View {
-        ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 23)
-                .foregroundColor(Color("SearchbarBackground"))
-                .frame(height: 46)
-            HStack(spacing: 8) {
-                Image(systemName: "magnifyingglass")
-                ZStack(alignment: .leading) {
-                    if text.isEmpty {
-                        Text("식물 종류를 입력해주세요")
-                            .font(.custom(FontManager.Pretendard.regular, size: 15))
-                    }
-                    TextField("", text: $text)
-                        .focused($isFocused)
-                        .foregroundColor(Color("Black"))
-                        .font(.custom(FontManager.Pretendard.regular, size: 18))
+        NavigationLink(destination: PlantSearchView(plantName: $plantName, contentsNumber: $contentsNo)) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 23)
+                    .foregroundColor(Color("SearchbarBackground"))
+                    .frame(height: 46)
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(Color("GreyText"))
+                    Spacer()
                 }
-                if isFocused {
-                    Image(systemName: "xmark.circle.fill")
-                        .padding(.trailing, 12)
-                        .onTapGesture {
-                            text = ""
-                            // TODO: Should miss keyboard?
-                            UIApplication.shared.dismissKeyboard()
-                        }
+                .padding(.leading, 16)
+                if plantName.isEmpty {
+                    Text("어떤 식물을 기록하시나요?")
+                        .font(.custom(FontManager.Pretendard.regular, size: 15))
+                        .foregroundColor(Color("GreyText"))
+                } else {
+                    Text(plantName)
+                        .font(.custom(FontManager.Pretendard.regular, size: 18))
+                        .foregroundColor(Color("Black"))
                 }
             }
-            .foregroundColor(Color("GreyText"))
-            .padding(.leading, 16)
         }
     }
 }

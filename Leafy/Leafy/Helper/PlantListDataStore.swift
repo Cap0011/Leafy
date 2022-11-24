@@ -7,13 +7,14 @@
 
 import Foundation
 
-class PlantListDataStore: NSObject, XMLParserDelegate {
+@MainActor
+class PlantListDataStore: NSObject, XMLParserDelegate, ObservableObject {
     static let shared = PlantListDataStore()
     
     let baseListURL = "http://api.nongsaro.go.kr/service/garden/gardenList"
     
     var currentElement = ""
-    var plantItems = [PlantInfo]()
+    @Published var plantItems = [PlantInfo]()
     var plantItem = PlantInfo()
     
     var contentNo = 0

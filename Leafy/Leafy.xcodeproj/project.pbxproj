@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C701B4BF28FB31B900C94DE3 /* PlantListDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701B4BE28FB31B900C94DE3 /* PlantListDataStore.swift */; };
+		C701B4C128FB3A9D00C94DE3 /* PlantSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701B4C028FB3A9D00C94DE3 /* PlantSearchView.swift */; };
+		C701B4C328FBD16000C94DE3 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701B4C228FBD16000C94DE3 /* ActivityIndicatorView.swift */; };
 		C70C12E928D70978003DF92A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12E828D70978003DF92A /* MainView.swift */; };
 		C70C12EB28D73563003DF92A /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EA28D73563003DF92A /* DiaryDetailView.swift */; };
 		C70C12ED28D758D7003DF92A /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70C12EC28D758D7003DF92A /* AddNoteView.swift */; };
@@ -34,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		C701B4BE28FB31B900C94DE3 /* PlantListDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantListDataStore.swift; sourceTree = "<group>"; };
+		C701B4C028FB3A9D00C94DE3 /* PlantSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantSearchView.swift; sourceTree = "<group>"; };
+		C701B4C228FBD16000C94DE3 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		C70C12E828D70978003DF92A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C70C12EA28D73563003DF92A /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
 		C70C12EC28D758D7003DF92A /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 				C79E139C28E9B0990010C4BA /* DiaryListView.swift */,
 				C79E13A228EB169A0010C4BA /* AddDiaryView.swift */,
 				C79E13B128EB61350010C4BA /* PlantingTipView.swift */,
+				C701B4C028FB3A9D00C94DE3 /* PlantSearchView.swift */,
+				C701B4C228FBD16000C94DE3 /* ActivityIndicatorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -240,6 +246,7 @@
 				C701B4BF28FB31B900C94DE3 /* PlantListDataStore.swift in Sources */,
 				C70C12E928D70978003DF92A /* MainView.swift in Sources */,
 				C72752D228D63B3100013F46 /* Secret.swift in Sources */,
+				C701B4C128FB3A9D00C94DE3 /* PlantSearchView.swift in Sources */,
 				C72752B528D250E300013F46 /* LeafyApp.swift in Sources */,
 				C72752C628D2565300013F46 /* PlantInfo.swift in Sources */,
 				C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */,
@@ -252,6 +259,7 @@
 				C79E139D28E9B0990010C4BA /* DiaryListView.swift in Sources */,
 				C79E139F28E9C0590010C4BA /* FlatLinkStyle.swift in Sources */,
 				C79E13B228EB61350010C4BA /* PlantingTipView.swift in Sources */,
+				C701B4C328FBD16000C94DE3 /* ActivityIndicatorView.swift in Sources */,
 				C70C12EB28D73563003DF92A /* DiaryDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
