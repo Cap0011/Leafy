@@ -16,17 +16,20 @@ struct DiaryDetailView: View {
     @State var isShowingActionSheet = false
     
     @State private var isShowingSheet = false
+    @State private var isShowingNoteSheet = false
+    
+    @State var currentPage = 0
     
     var body: some View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
             VStack {
-                DiaryNoteView(plant: self.plant, isShowingSheet: $isShowingSheet)
+                DiaryNoteView(plant: self.plant, isShowingSheet: $isShowingSheet, isShowingNoteSheet: $isShowingNoteSheet, currentPage: $currentPage)
                     .padding(.bottom, 40)
                 HStack(spacing: 20) {
                     Image(systemName: "pencil.circle.fill")
                         .onTapGesture {
-                            // TODO: Edit
+                            // TODO: Open EditNoteView
                             print("Edit button tapped!")
                         }
                     Image(systemName: "trash.circle.fill")
@@ -35,7 +38,7 @@ struct DiaryDetailView: View {
                         }
                         .confirmationDialog("", isPresented: $isShowingActionSheet) {
                             Button("페이지 삭제", role: .destructive) {
-                                // TODO: Delete
+                                // TODO: Delete this note
                                 print("Delete selected!")
                             }
                             Button("취소", role: .cancel) {}
@@ -67,6 +70,14 @@ struct DiaryDetailView: View {
                 PlantingTipView(contentsNumber: plant.info?.cntntsNo ?? -1)
             }
         }
+        .sheet(isPresented: $isShowingNoteSheet) {
+            if #available(iOS 16.0, *) {
+                NoteDetailView(journal: plant.journals[currentPage - 1].content)
+                    .presentationDetents([.fraction(0.75)])
+            } else {
+                NoteDetailView(journal: plant.journals[currentPage - 1].content)
+            }
+        }
     }
 }
 
@@ -74,8 +85,9 @@ struct DiaryNoteView: View {
     let plant: Plant
     
     @Binding var isShowingSheet: Bool
+    @Binding var isShowingNoteSheet: Bool
     
-    @State var currentPage = 0
+    @Binding var currentPage: Int
     
     var body: some View {
         VStack {
@@ -172,7 +184,11 @@ struct DiaryNoteView: View {
                 .padding(.top)
             }
             .font(.system(size: 18, weight: .semibold))
-            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+            .onTapGesture {
+                isShowingNoteSheet = true
+            }
+            .gesture(
+                DragGesture(minimumDistance: 0, coordinateSpace: .local)
                 .onEnded({ value in
                     if value.translation.width < 0 {
                         // Show next page
@@ -187,8 +203,8 @@ struct DiaryNoteView: View {
                             currentPage -= 1
                         }
                     }
-                }))
-            
+                })
+            )
             Text("\(currentPage)/\(plant.journals.count) 페이지")
                 .font(.custom(FontManager.Pretendard.medium, size: 15))
                 .padding(.top, 20)
