@@ -25,7 +25,9 @@ struct AddDiaryView: View {
                 VStack(spacing: 24) {
                     SearchbarEntryView(plantName: $plantName, contentsNo: $contentsNumber)
                         .padding(.horizontal, 24)
+                    titleLable
                     NicknameTextField(nickname: $nickname)
+                        .padding(.top, -14)
                     DiaryCoverImage(style: styleNumber, painting: paintingNumber)
                         .padding(.bottom, 24)
                     DiaryCustomScrollView(number: $paintingNumber, title: "커버 이미지", imageName: "Painting", count: 9, spacing: 16)
@@ -34,10 +36,12 @@ struct AddDiaryView: View {
                 .padding(.top, 24)
             }
         }
+        .onTapGesture {
+            dismissKeyboard()
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    // Cancel and return to previous view
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Label("Cancel", systemImage: "xmark")
@@ -58,6 +62,17 @@ struct AddDiaryView: View {
         }
         .navigationBarTitle("")
         .navigationBarBackButtonHidden(true)
+    }
+    
+    var titleLable: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 16)
+                .frame(width: 58, height: 24)
+                .foregroundColor(Color("Black"))
+            Text("TITLE")
+                .font(.custom(FontManager.Pretendard.medium, size: 13))
+                .foregroundColor(.white)
+        }
     }
 }
 
@@ -98,17 +113,14 @@ struct NicknameTextField: View {
     var body: some View {
         ZStack {
             if nickname.isEmpty && !isFocused {
-                HStack(spacing: 4) {
-                    Text("식물 이름")
-                    Image(systemName: "pencil")
-                }
-                .foregroundColor(Color("GreyText"))
-                .font(.custom(FontManager.Pretendard.semiBold, size: 18))
-                .onTapGesture {
-                    isFocused = true
-                }
+                Text("다이어리")
+                    .underline(true)
+                    .foregroundColor(Color("GreyText"))
+                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
+                    .onTapGesture {
+                        isFocused = true
+                    }
             }
-            // TODO: Make TextField fit to size
             TextField("", text: $nickname)
                 .fixedSize()
                 .focused($isFocused)
