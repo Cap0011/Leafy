@@ -153,16 +153,20 @@ struct DiaryNoteView: View {
                             .offset(y: 3)
                         }
                         
-                        if currentJournal.image != nil {
-                            currentJournal.image!
-                                .resizable()
-                                .frame(width: 200, height: 200)
-                                .scaledToFit()
+                        if let image = currentJournal.image {
+                            NavigationLink(destination: NoteImageView(image: image)) {
+                                image
+                                    .resizable()
+                                    .frame(width: 200, height: 200)
+                                    .scaledToFit()
+                            }
                         } else {
-                            Image("PlaceHolder")
-                                .resizable()
-                                .frame(width: 200, height: 200)
-                                .scaledToFit()
+                            NavigationLink(destination: NoteImageView(image: Image("PlaceHolder"))) {
+                                Image("PlaceHolder")
+                                    .resizable()
+                                    .frame(width: 200, height: 200)
+                                    .scaledToFit()
+                            }
                         }
                         ZStack {
                             VStack(spacing: 30) {
