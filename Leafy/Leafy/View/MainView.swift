@@ -10,31 +10,41 @@ import SwiftUI
 struct MainView: View {
     @Environment(\.managedObjectContext) var context
     
+    @FetchRequest(
+        entity: Diary.entity(),
+        sortDescriptors: []
+    ) var diaries: FetchedResults<Diary>
+    
     @State var selectedDiary: FetchedResults<Diary>.Element?
     @State var isShowingActionSheet = false
+    
+    @State var isDeleted = false
     
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
                 Color("Background").ignoresSafeArea()
                 VStack(spacing: 40) {
-                    DiaryCoversView(currentDiary: $selectedDiary)
+                    DiaryCoversView(currentDiary: $selectedDiary, isDelete: $isDeleted)
                     HStack(spacing: 20) {
-                        if let selectedDiary {
-                            NavigationLink(destination: EditDiaryView(diary: selectedDiary)) {
-                                Image(systemName: "pencil.circle.fill")
-                            }
+                        if diaries.count > 0 {
+                            if let selectedDiary {
+                                NavigationLink(destination: EditDiaryView(diary: selectedDiary)) {
+                                    Image(systemName: "pencil.circle.fill")
+                                }
                             Image(systemName: "trash.circle.fill")
                                 .confirmationDialog("", isPresented: $isShowingActionSheet) {
                                     Button("다이어리 삭제", role: .destructive) {
                                         // TODO: Delete the diary
-                                        print("Delete selected!")
+                                        deleteDiary(diary: selectedDiary)
+                                        isDeleted.toggle()
                                     }
                                     Button("취소", role: .cancel) {}
                                 }
                                 .onTapGesture {
                                     isShowingActionSheet.toggle()
                                 }
+                            }
                         }
                         NavigationLink(destination: AddDiaryView()) {
                             Image(systemName: "plus.circle.fill")
@@ -69,6 +79,12 @@ struct MainView: View {
             print("Error saving managed object context: \(error)")
         }
     }
+
+    func deleteDiary(diary: Diary) {
+        self.context.delete(diary)
+        
+        saveContext()
+    }
 }
 
 struct DiaryCoversView: View {
@@ -83,6 +99,8 @@ struct DiaryCoversView: View {
 
     @State private var offset: CGFloat = 0
     @State private var currentItem = 0
+    
+    @Binding var isDelete: Bool
     
     private let spacing: CGFloat = 30
     
@@ -104,6 +122,16 @@ struct DiaryCoversView: View {
             .onChange(of: currentItem) { idx in
                 currentDiary = diaries[currentItem]
             }
+            .onChange(of: isDelete) { _ in
+                if diaries.count > 0 {
+                    if currentItem != 0 && diaries.count == currentItem {
+                        moveToLeft()
+                        currentItem -= 1
+                    }
+                } else {
+                    currentDiary = nil
+                }
+            }
             .offset(x: offset)
             .padding(.horizontal, 70)
             .highPriorityGesture(
@@ -113,13 +141,13 @@ struct DiaryCoversView: View {
                             if value.translation.width > 0 {
                                 // Swipe to left
                                 if currentItem != 0 {
-                                    offset += (250 + self.spacing)
+                                    moveToLeft()
                                     currentItem -= 1
                                 }
                             } else {
                                 // Swipe to right
                                 if currentItem != diaries.count - 1 {
-                                    offset -= (250 + self.spacing)
+                                    moveToRight()
                                     currentItem += 1
                                 }
                             }
@@ -129,6 +157,14 @@ struct DiaryCoversView: View {
         }
         .frame(height: 500)
         .animation(.easeInOut, value: offset == 0)
+    }
+    
+    func moveToLeft() {
+        offset += (250 + self.spacing)
+    }
+    
+    func moveToRight() {
+        offset -= (250 + self.spacing)
     }
 }
 

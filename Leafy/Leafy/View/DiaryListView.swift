@@ -36,6 +36,8 @@ struct DiaryListView: View {
 }
 
 struct DiaryListRow: View {
+    @Environment(\.managedObjectContext) var context
+    
     @ObservedObject var diary: Diary
     
     @State var isShowingActionSheet = false
@@ -70,8 +72,7 @@ struct DiaryListRow: View {
                 Image(systemName: "trash")
                     .confirmationDialog("", isPresented: $isShowingActionSheet) {
                         Button("다이어리 삭제", role: .destructive) {
-                            // TODO: Delete the diary
-                            print("Delete selected!")
+                            deleteDiary(diary: diary)
                         }
                         Button("취소", role: .cancel) {}
                     }
@@ -81,6 +82,20 @@ struct DiaryListRow: View {
             }
             .font(.system(size: 18, weight: .semibold))
         }
+    }
+    
+    func saveContext() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving managed object context: \(error)")
+        }
+    }
+
+    func deleteDiary(diary: Diary) {
+        self.context.delete(diary)
+        
+        saveContext()
     }
 }
 
