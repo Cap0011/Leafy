@@ -38,6 +38,7 @@ struct AddNoteView: View {
                             
                             Image(uiImage: selectedImage)
                                 .resizable()
+                                .cornerRadius(8)
                             
                             Image(systemName: "plus.circle.fill")
                                 .foregroundColor(Color("Black"))
@@ -131,7 +132,7 @@ struct AddNoteView: View {
                 }
                 .simultaneousGesture(DragGesture().onChanged({ gesture in
                     withAnimation{
-                        UIApplication.shared.dismissKeyboard()
+                        dismissKeyboard()
                     }
                 }))
             }
@@ -139,7 +140,6 @@ struct AddNoteView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    // Cancel and return to previous view
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Label("Cancel", systemImage: "xmark")
@@ -149,7 +149,7 @@ struct AddNoteView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    // TODO: Save data
+                    // TODO: Save journal data
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Label("Save", systemImage: "checkmark")
@@ -201,21 +201,9 @@ struct ElementCapsule: View {
     }
 }
 
-extension UIApplication {
-    func dismissKeyboard() {
-        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}
-
 struct NoHitTesting: ViewModifier {
     func body(content: Content) -> some View {
         SwiftUIWrapper { content }.allowsHitTesting(false)
-    }
-}
-
-extension View {
-    func userInteractionDisabled() -> some View {
-        self.modifier(NoHitTesting())
     }
 }
 
