@@ -15,6 +15,7 @@ struct LeafyApp: App {
         WindowGroup {
             MainView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .accentColor(Color("Black"))
         }
     }
 }

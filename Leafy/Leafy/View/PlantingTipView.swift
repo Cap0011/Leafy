@@ -102,6 +102,8 @@ struct PlantingTipView: View {
                         waterAutumn = Constant.waterCycleString(code: Int(dataStore.autumnWater) ?? 0)
                         waterWinter = Constant.waterCycleString(code: Int(dataStore.winterWater) ?? 0)
                         isLoading = false
+                    } else {
+                        isLoading = false
                     }
                 }
             }

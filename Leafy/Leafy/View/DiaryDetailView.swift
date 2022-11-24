@@ -44,7 +44,7 @@ struct DiaryDetailView: View {
                             }
                             Button("취소", role: .cancel) {}
                         }
-                    NavigationLink(destination: AddNoteView()) {
+                    NavigationLink(destination: AddNoteView(diary: diary)) {
                         Image(systemName: "plus.circle.fill")
                     }
                     .buttonStyle(FlatLinkStyle())
@@ -84,6 +84,7 @@ struct DiaryDetailView: View {
                 notes = diaryNotes.allObjects as! [Note]
                 notes.sort { $0.date ?? Date() < $1.date ?? Date() }
             }
+            if diary.notes?.count ?? 0 > 0 && currentPage == 0 { currentPage = 1 }
         }
     }
 }
@@ -167,14 +168,15 @@ struct DiaryNoteView: View {
                                     .resizable()
                                     .frame(width: 200, height: 200)
                                     .scaledToFit()
+                                    .cornerRadius(8)
+                                    .rotationEffect(.degrees(90))
                             }
                         } else {
-                            NavigationLink(destination: NoteImageView(image: Image("PlaceHolder"))) {
-                                Image("PlaceHolder")
-                                    .resizable()
-                                    .frame(width: 200, height: 200)
-                                    .scaledToFit()
-                            }
+                            Image("PlaceHolder")
+                                .resizable()
+                                .frame(width: 200, height: 200)
+                                .scaledToFit()
+                                .cornerRadius(8)
                         }
                         ZStack {
                             VStack(spacing: 30) {
@@ -187,7 +189,7 @@ struct DiaryNoteView: View {
                             }
                             .padding(.top, 32)
                             Text(currentNote.journal ?? "")
-                                .frame(width: 200, height: 50)
+                                .frame(width: 200, height: 50, alignment: .topLeading)
                                 .font(.custom(FontManager.hand, size: 18))
                                 .lineSpacing(8)
                         }
@@ -222,9 +224,5 @@ struct DiaryNoteView: View {
                 .padding(.top, 20)
         }
         .foregroundColor(Color("Black"))
-        .onAppear {
-            if diary.notes?.count ?? 0 > 0 { currentPage = 1 }
-        }
-
     }
 }

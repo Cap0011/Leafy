@@ -9,6 +9,9 @@ import SwiftUI
 
 struct AddNoteView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.managedObjectContext) var context
+    
+    @State var diary: FetchedResults<Diary>.Element
     
     @State private var isShowingActionSheet = false
     @State private var isCameraChoosed = false
@@ -150,6 +153,7 @@ struct AddNoteView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     // TODO: Save journal data
+                    addNote(date: date, isWatered: isWatering, isFertilised: isFertilised, isSun: isSun, isWind: isWind, journal: contents, image: selectedImage)
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Label("Save", systemImage: "checkmark")
@@ -165,6 +169,34 @@ struct AddNoteView: View {
         .sheet(isPresented: $isGalleryChoosed) {
             ImagePicker(selectedImage: $selectedImage, sourceType: .photoLibrary)
         }
+    }
+    
+    func saveContext() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving managed object context: \(error)")
+        }
+    }
+    
+    func addNote(date: Date, isWatered: Bool, isFertilised: Bool, isSun: Bool, isWind: Bool, journal: String, image: UIImage) {
+        let newNote = Note(context: context)
+        newNote.date = date
+        newNote.isWatered = isWatered
+        newNote.isFertilised = isFertilised
+        newNote.isSun = isSun
+        newNote.isWind = isWind
+        newNote.journal = journal
+        newNote.image = image.pngData()
+        newNote.diary = diary
+        
+        if diary.notes != nil {
+            diary.notes!.adding(newNote)
+        } else {
+            diary.notes = NSSet(array: [newNote])
+        }
+        
+        saveContext()
     }
 }
 
@@ -213,10 +245,4 @@ struct SwiftUIWrapper<T: View>: UIViewControllerRepresentable {
         UIHostingController(rootView: content())
     }
     func updateUIViewController(_ uiViewController: UIHostingController<T>, context: Context) {}
-}
-
-struct AddNoteView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddNoteView()
-    }
 }

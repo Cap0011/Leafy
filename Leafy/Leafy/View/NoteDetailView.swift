@@ -27,6 +27,7 @@ struct NoteDetailView: View {
                     .padding(.top, 30)
                     
                     Text(journal)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.custom(FontManager.hand, size: 20))
                         .lineSpacing(17)
                 }
