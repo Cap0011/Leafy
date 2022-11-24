@@ -29,7 +29,7 @@ struct PlantSearchView: View {
                     }
                     .padding(.top, 8)
                 } else {
-                    queryListScrollView(plantList: plantListStore.plantItems, plantName: $plantName, contentsNumber: $contentsNumber)
+                    queryListScrollView(plantList: plantListStore.plantItems, queryString: query, plantName: $plantName, contentsNumber: $contentsNumber)
                         .padding(.top, 8)
                 }
             }
@@ -98,18 +98,34 @@ struct queryListScrollView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     let plantList: [PlantInfo]
+    let queryString: String
     
     @Binding var plantName: String
     @Binding var contentsNumber: Int
+    
+    @State var isExactNameFound = false
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             ForEach(plantList, id: \.self.cntntsNo) { plant in
                 queryRow(text: plant.plantName ?? "")
+                    .onAppear {
+                        if plant.plantName == queryString {
+                            isExactNameFound = true
+                        }
+                    }
                     .onTapGesture {
                         plantName = plant.plantName ?? ""
-                        contentsNumber = plant.cntntsNo ?? 0
+                        contentsNumber = plant.cntntsNo ?? -1
                         PlantListDataStore.shared.plantItems = [PlantInfo]()
+                        presentationMode.wrappedValue.dismiss()
+                    }
+            }
+            if !isExactNameFound && !queryString.isEmpty {
+                NameNotFoundRow(text: queryString)
+                    .onTapGesture {
+                        plantName = queryString
+                        contentsNumber = -1
                         presentationMode.wrappedValue.dismiss()
                     }
             }
@@ -128,6 +144,26 @@ struct queryRow: View {
                 .padding(.vertical, 8)
             Spacer()
         }
+        Divider()
+    }
+}
+
+struct NameNotFoundRow: View {
+    let text: String
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            Text("'")
+            Text(text)
+                .font(.custom(FontManager.Pretendard.regular, size: 18))
+                .foregroundColor(Color("Green"))
+                .padding(.vertical, 8)
+            Text("' 등록하기")
+            Spacer()
+            Image(systemName: "chevron.forward")
+        }
+        .foregroundColor(Color("Black"))
+        .contentShape(Rectangle())
         Divider()
     }
 }
