@@ -26,6 +26,8 @@
 		C73555D8292F9626008E30F9 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555D7292F9626008E30F9 /* Constant.swift */; };
 		C73555DA292FA7CE008E30F9 /* NoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555D9292FA7CE008E30F9 /* NoteDetailView.swift */; };
 		C73555DC292FAE09008E30F9 /* NoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555DB292FAE09008E30F9 /* NoteImageView.swift */; };
+		C73555DF292FB3B4008E30F9 /* Leafy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C73555DD292FB3B4008E30F9 /* Leafy.xcdatamodeld */; };
+		C73555E1292FB838008E30F9 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555E0292FB838008E30F9 /* PersistenceController.swift */; };
 		C79E139D28E9B0990010C4BA /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E139C28E9B0990010C4BA /* DiaryListView.swift */; };
 		C79E139F28E9C0590010C4BA /* FlatLinkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */; };
 		C79E13A328EB169A0010C4BA /* AddDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E13A228EB169A0010C4BA /* AddDiaryView.swift */; };
@@ -60,6 +62,8 @@
 		C73555D7292F9626008E30F9 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		C73555D9292FA7CE008E30F9 /* NoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailView.swift; sourceTree = "<group>"; };
 		C73555DB292FAE09008E30F9 /* NoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteImageView.swift; sourceTree = "<group>"; };
+		C73555DE292FB3B4008E30F9 /* Leafy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Leafy.xcdatamodel; sourceTree = "<group>"; };
+		C73555E0292FB838008E30F9 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		C79E139C28E9B0990010C4BA /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkStyle.swift; sourceTree = "<group>"; };
 		C79E13A228EB169A0010C4BA /* AddDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiaryView.swift; sourceTree = "<group>"; };
@@ -128,6 +132,7 @@
 			children = (
 				C72752C528D2565300013F46 /* PlantInfo.swift */,
 				C72752C928D25BFA00013F46 /* Plant.swift */,
+				C73555DD292FB3B4008E30F9 /* Leafy.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -160,6 +165,7 @@
 				C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */,
 				C79E13B328EDEAD90010C4BA /* Utils.swift */,
 				C73555D7292F9626008E30F9 /* Constant.swift */,
+				C73555E0292FB838008E30F9 /* PersistenceController.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -265,6 +271,7 @@
 				C72752B728D250E300013F46 /* ContentView.swift in Sources */,
 				C701B4BF28FB31B900C94DE3 /* PlantListDataStore.swift in Sources */,
 				C73555DC292FAE09008E30F9 /* NoteImageView.swift in Sources */,
+				C73555DF292FB3B4008E30F9 /* Leafy.xcdatamodeld in Sources */,
 				C70C12E928D70978003DF92A /* MainView.swift in Sources */,
 				C72752D228D63B3100013F46 /* Secret.swift in Sources */,
 				C701B4C128FB3A9D00C94DE3 /* PlantSearchView.swift in Sources */,
@@ -285,6 +292,7 @@
 				C79E13B228EB61350010C4BA /* PlantingTipView.swift in Sources */,
 				C701B4C328FBD16000C94DE3 /* ActivityIndicatorView.swift in Sources */,
 				C70C12EB28D73563003DF92A /* DiaryDetailView.swift in Sources */,
+				C73555E1292FB838008E30F9 /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +497,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C73555DD292FB3B4008E30F9 /* Leafy.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C73555DE292FB3B4008E30F9 /* Leafy.xcdatamodel */,
+			);
+			currentVersion = C73555DE292FB3B4008E30F9 /* Leafy.xcdatamodel */;
+			path = Leafy.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C72752A928D250E300013F46 /* Project object */;
 }

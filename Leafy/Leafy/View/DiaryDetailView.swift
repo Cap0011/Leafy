@@ -10,8 +10,7 @@ import SwiftUI
 struct DiaryDetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    let plants = [Plant.flower, Plant.grass, Plant.tree]
-    var plant: Plant
+    @State var diary: FetchedResults<Diary>.Element
     
     @State var isShowingActionSheet = false
     
@@ -20,11 +19,13 @@ struct DiaryDetailView: View {
     
     @State var currentPage = 0
     
+    @State var notes = [Note]()
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
             VStack {
-                DiaryNoteView(plant: self.plant, isShowingSheet: $isShowingSheet, isShowingNoteSheet: $isShowingNoteSheet, currentPage: $currentPage)
+                DiaryNoteView(diary: diary, notes: notes, isShowingSheet: $isShowingSheet, isShowingNoteSheet: $isShowingNoteSheet, currentPage: $currentPage)
                     .padding(.bottom, 40)
                 HStack(spacing: 20) {
                     Image(systemName: "pencil.circle.fill")
@@ -54,7 +55,7 @@ struct DiaryDetailView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: DiaryListView(plants: plants)) {
+                NavigationLink(destination: DiaryListView()) {
                     Label("List", systemImage: "books.vertical")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.black)
@@ -64,38 +65,45 @@ struct DiaryDetailView: View {
         .navigationTitle("")
         .sheet(isPresented: $isShowingSheet) {
             if #available(iOS 16.0, *) {
-                PlantingTipView(contentsNumber: plant.info?.cntntsNo ?? -1)
+                PlantingTipView(contentsNumber: Int(diary.plantNo))
                     .presentationDetents([.fraction(0.75)])
             } else {
-                PlantingTipView(contentsNumber: plant.info?.cntntsNo ?? -1)
+                PlantingTipView(contentsNumber: Int(diary.plantNo))
             }
         }
         .sheet(isPresented: $isShowingNoteSheet) {
             if #available(iOS 16.0, *) {
-                NoteDetailView(journal: plant.journals[currentPage - 1].content)
+                NoteDetailView(journal: notes[currentPage - 1].journal ?? "")
                     .presentationDetents([.fraction(0.75)])
             } else {
-                NoteDetailView(journal: plant.journals[currentPage - 1].content)
+                NoteDetailView(journal: notes[currentPage - 1].journal ?? "")
+            }
+        }
+        .task {
+            if let diaryNotes = diary.notes {
+                notes = diaryNotes.allObjects as! [Note]
+                notes.sort { $0.date ?? Date() < $1.date ?? Date() }
             }
         }
     }
 }
 
 struct DiaryNoteView: View {
-    let plant: Plant
+    let diary: Diary
+    let notes: [Note]
     
     @Binding var isShowingSheet: Bool
     @Binding var isShowingNoteSheet: Bool
     
     @Binding var currentPage: Int
-    
+
     var body: some View {
         VStack {
-            Text(plant.nickname)
+            Text(diary.title ?? "다이어리 제목")
                 .font(.custom(FontManager.Pretendard.semiBold, size: 18))
                 .padding(.bottom, 24)
-            
-            Text(plant.info?.plantName != nil ? "\(plant.info!.plantName!) 관리 TIP" : "")
+
+            Text("\(diary.plantName ?? "식물 종류") 관리 TIP")
                 .foregroundColor(.white)
                 .padding(.horizontal, 12)
                 .font(.custom(FontManager.Pretendard.medium, size: 13))
@@ -103,7 +111,7 @@ struct DiaryNoteView: View {
                 .onTapGesture {
                     isShowingSheet.toggle()
                 }
-            
+
             ZStack {
                 HStack {
                     Image("Note")
@@ -122,7 +130,7 @@ struct DiaryNoteView: View {
                             currentPage -= 1
                         }
                 }
-                if currentPage != plant.journals.count {
+                if currentPage != notes.count {
                     Image(systemName: "arrow.forward")
                         .font(.system(size: 18, weight: .semibold))
                         .offset(x: (UIScreen.main.bounds.width / 2 - 24))
@@ -130,30 +138,30 @@ struct DiaryNoteView: View {
                             currentPage += 1
                         }
                 }
-                
+
                 VStack(alignment: .leading, spacing: 8) {
-                    if plant.journals.count > 0 && currentPage > 0 {
-                        let currentJournal = plant.journals[currentPage - 1]
+                    if notes.count > 0 && currentPage > 0 {
+                        let currentNote = notes[currentPage - 1]
                         HStack(spacing: 20) {
-                            Text(Utils.formatter.string(from: currentJournal.date))
+                            Text(Utils.formatter.string(from: currentNote.date ?? Date()))
                                 .font(.custom(FontManager.hand, size: 18))
                             HStack {
                                 Image(systemName: "drop.fill")
-                                    .foregroundColor(currentJournal.isWatering ? Color("Water") : Color("Unselected"))
-                                if currentJournal.isFertilised {
+                                    .foregroundColor(currentNote.isWatered ? Color("Water") : Color("Unselected"))
+                                if currentNote.isFertilised {
                                     Image("Fertiliser-selected")
                                 } else {
                                     Image("Fertiliser-unselected")
                                 }
                                 Image(systemName: "sun.max.fill")
-                                    .foregroundColor(currentJournal.isSun ? Color("Sun") : Color("Unselected"))
+                                    .foregroundColor(currentNote.isSun ? Color("Sun") : Color("Unselected"))
                                 Image(systemName: "wind")
-                                    .foregroundColor(currentJournal.isWind ? Color("Wind") : Color("Unselected"))
+                                    .foregroundColor(currentNote.isWind ? Color("Wind") : Color("Unselected"))
                             }
                             .offset(y: 3)
                         }
-                        
-                        if let image = currentJournal.image {
+
+                        if let data = currentNote.image, let uiImage = UIImage(data: data), let image = Image(uiImage: uiImage) {
                             NavigationLink(destination: NoteImageView(image: image)) {
                                 image
                                     .resizable()
@@ -178,7 +186,7 @@ struct DiaryNoteView: View {
                                     .foregroundColor(Color("Unselected"))
                             }
                             .padding(.top, 32)
-                            Text(currentJournal.content)
+                            Text(currentNote.journal ?? "")
                                 .frame(width: 200, height: 50)
                                 .font(.custom(FontManager.hand, size: 18))
                                 .lineSpacing(8)
@@ -196,11 +204,11 @@ struct DiaryNoteView: View {
                 .onEnded({ value in
                     if value.translation.width < 0 {
                         // Show next page
-                        if currentPage != plant.journals.count {
+                        if currentPage != diary.notes?.count {
                             currentPage += 1
                         }
                     }
-                    
+
                     if value.translation.width > 0 {
                         // Show previous page
                         if currentPage > 1 {
@@ -209,19 +217,14 @@ struct DiaryNoteView: View {
                     }
                 })
             )
-            Text("\(currentPage)/\(plant.journals.count) 페이지")
+            Text("\(currentPage)/\(diary.notes?.count ?? 0) 페이지")
                 .font(.custom(FontManager.Pretendard.medium, size: 15))
                 .padding(.top, 20)
         }
         .foregroundColor(Color("Black"))
         .onAppear {
-            if plant.journals.count > 0 { currentPage = 1 }
+            if diary.notes?.count ?? 0 > 0 { currentPage = 1 }
         }
-    }
-}
 
-struct DiaryDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiaryDetailView(plant: Plant.flower)
     }
 }

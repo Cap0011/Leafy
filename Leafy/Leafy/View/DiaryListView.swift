@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct DiaryListView: View {
-    @State var plants: [Plant]
+    @FetchRequest(
+        entity: Diary.entity(),
+        sortDescriptors: []
+    ) var diaries: FetchedResults<Diary>
     
     var body: some View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
             VStack {
-                ForEach(plants) { plant in
-                    NavigationLink(destination: DiaryDetailView(plant: plant)) {
-                        DiaryListRow(plant: plant)
+                ForEach(diaries) { diary in
+                    NavigationLink(destination: DiaryDetailView(diary: diary)) {
+                        DiaryListRow(diary: diary)
                             .padding(.vertical, 20)
                             .contentShape(Rectangle())
                     }
@@ -33,18 +36,18 @@ struct DiaryListView: View {
 }
 
 struct DiaryListRow: View {
-    let plant: Plant
+    let diary: Diary
     
     @State var isShowingActionSheet = false
     
     var body: some View {
         HStack(spacing: 20) {
             ZStack {
-                Image("Cover\(plant.diaryStyle?.painting ?? 0)")
+                Image("Cover\(diary.coverNo)")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 50)
-                Image("Painting\(plant.diaryStyle?.painting ?? 0)")
+                Image("Painting\(diary.paintingNo)")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 30)
@@ -52,9 +55,9 @@ struct DiaryListRow: View {
             }
             
             VStack(alignment: .leading, spacing: 10) {
-                Text(plant.nickname)
+                Text(diary.title ?? "다이어리 제목")
                     .font(.custom(FontManager.Pretendard.semiBold, size: 18))
-                Text(plant.info?.plantName ?? "")
+                Text(diary.plantName ?? "식물 종류")
                     .font(.custom(FontManager.Pretendard.regular, size: 15))
             }
              
@@ -84,6 +87,6 @@ struct DiaryListRow: View {
 
 struct DiaryListView_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryListView(plants: [Plant.flower, Plant.grass, Plant.tree])
+        DiaryListView()
     }
 }

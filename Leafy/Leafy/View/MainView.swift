@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var plants = [Plant.flower, Plant.grass, Plant.tree]
-    
+    @Environment(\.managedObjectContext) var context
+        
     @State var isShowingActionSheet = false
     
     var body: some View {
@@ -17,7 +17,7 @@ struct MainView: View {
             ZStack(alignment: .top) {
                 Color("Background").ignoresSafeArea()
                 VStack(spacing: 40) {
-                    DiaryCoversView(plants: plants)
+                    DiaryCoversView()
                     HStack(spacing: 20) {
                         Image(systemName: "pencil.circle.fill")
                             .onTapGesture {
@@ -48,7 +48,7 @@ struct MainView: View {
             .navigationTitle("")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: DiaryListView(plants: plants)) {
+                    NavigationLink(destination: DiaryListView()) {
                         Label("List", systemImage: "books.vertical")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.black)
@@ -63,7 +63,10 @@ struct MainView: View {
 }
 
 struct DiaryCoversView: View {
-    var plants: [Plant]
+    @FetchRequest(
+        entity: Diary.entity(),
+        sortDescriptors: []
+    ) var diaries: FetchedResults<Diary>
 
     @State private var offset: CGFloat = 0
     @State private var currentItem = 0
@@ -73,8 +76,8 @@ struct DiaryCoversView: View {
     var body: some View {
         GeometryReader { proxy in
             HStack(spacing: self.spacing) {
-                ForEach(0..<plants.count, id: \.self) { idx in
-                    DiaryCoverView(plant: plants[idx])
+                ForEach(Array(diaries.enumerated()), id: \.offset) { idx, diary in
+                    DiaryCoverView(diary: diary)
                         .frame(width: 250)
                         .opacity(currentItem == idx ? 1.0 : 0.8)
                         .scaleEffect(currentItem == idx ? 1.0 : 0.9)
@@ -94,7 +97,7 @@ struct DiaryCoversView: View {
                                 }
                             } else {
                                 // Swipe to right
-                                if currentItem != plants.count - 1 {
+                                if currentItem != diaries.count - 1 {
                                     offset -= (250 + self.spacing)
                                     currentItem += 1
                                 }
@@ -109,25 +112,25 @@ struct DiaryCoversView: View {
 }
 
 struct DiaryCoverView: View {
-    var plant: Plant
+    var diary: Diary
     
     var body: some View {
         VStack(spacing: 50) {
             VStack(spacing: 10) {
-                Text(plant.nickname)
+                Text(diary.title ?? "다이어리 제목")
                     .font(.custom(FontManager.Pretendard.semiBold, size: 18))
                     .padding(.bottom, 2)
-                Text(plant.info?.plantName ?? "식물 종류")
+                Text(diary.plantName ?? "식물 종류")
                     .font(.custom(FontManager.Pretendard.medium, size: 15))
             }
             VStack(spacing: 20) {
-                NavigationLink(destination: DiaryDetailView(plant: self.plant)) {
+                NavigationLink(destination: DiaryDetailView(diary: diary)) {
                     ZStack {
-                        Image("Cover\(plant.diaryStyle?.cover ?? 0)")
+                        Image("Cover\(diary.coverNo)")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 250)
-                        Image("Painting\(plant.diaryStyle?.painting ?? 0)")
+                        Image("Painting\(diary.paintingNo)")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 150)
@@ -135,15 +138,9 @@ struct DiaryCoverView: View {
                     }
                 }
                 .buttonStyle(FlatLinkStyle())
-                Text("\(plant.journals.count) 페이지")
+                Text("\(diary.notes?.count ?? 0) 페이지")
                     .font(.custom(FontManager.Pretendard.medium, size: 15))
             }
-        }
-    }
-    
-    struct FlatLinkStyle: ButtonStyle {
-        func makeBody(configuration: Configuration) -> some View {
-            configuration.label
         }
     }
 }
