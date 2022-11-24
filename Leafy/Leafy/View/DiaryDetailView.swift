@@ -61,10 +61,10 @@ struct DiaryDetailView: View {
         .navigationTitle("")
         .sheet(isPresented: $isShowingSheet) {
             if #available(iOS 16.0, *) {
-                PlantingTipView()
+                PlantingTipView(contentsNumber: plant.info?.cntntsNo ?? -1)
                     .presentationDetents([.fraction(0.75)])
             } else {
-                PlantingTipView()
+                PlantingTipView(contentsNumber: plant.info?.cntntsNo ?? -1)
             }
         }
     }

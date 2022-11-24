@@ -18,6 +18,7 @@ enum XMLKeys: String {
     case winterWater = "watercycleWinterCode"
     case temperature = "grwhTpCodeNm"
     case searchPlantName = "cntntsSj"
+    case light = "lighttdemanddoCodeNm"
 }
 
 class PlantDataStore: NSObject, XMLParserDelegate {
@@ -37,6 +38,7 @@ class PlantDataStore: NSObject, XMLParserDelegate {
     var autumnWater = ""
     var winterWater = ""
     var temperature = ""
+    var light = ""
     
     func loadPlantData(contentsNumber: Int) async throws {
         guard let url = URL(string: "\(baseDetailURL)?apiKey=\(Secret.apiKey)&cntntsNo=\(contentsNumber)") else {
@@ -75,6 +77,7 @@ class PlantDataStore: NSObject, XMLParserDelegate {
             plantItem.autumnWater = autumnWater
             plantItem.winterWater = winterWater
             plantItem.temperature = temperature
+            plantItem.light = light
         }
     }
     
@@ -100,6 +103,8 @@ class PlantDataStore: NSObject, XMLParserDelegate {
             winterWater = string
         } else if (currentElement == XMLKeys.temperature.rawValue) {
             temperature = string
+        } else if (currentElement == XMLKeys.light.rawValue) {
+            light = string
         }
     }
 }

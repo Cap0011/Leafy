@@ -11,7 +11,7 @@ class PlantInfo {
     init() {
     }
     
-    init(contentNo: Int?, plantName: String?, humidity: String?, fertiliser: String?, springWater: String?, summerWater: String?, autumnWater: String?, winterWater: String?, temperature: String?) {
+    init(contentNo: Int?, plantName: String?, humidity: String?, fertiliser: String?, springWater: String?, summerWater: String?, autumnWater: String?, winterWater: String?, temperature: String?, light: String?) {
         self.cntntsNo = contentNo
         self.plantName = plantName
         self.humidity = humidity
@@ -21,6 +21,7 @@ class PlantInfo {
         self.autumnWater = autumnWater
         self.winterWater = winterWater
         self.temperature = temperature
+        self.light = light
     }
     
     var cntntsNo: Int?
@@ -32,4 +33,5 @@ class PlantInfo {
     var autumnWater: String?
     var winterWater: String?
     var temperature: String?
+    var light: String?
 }
