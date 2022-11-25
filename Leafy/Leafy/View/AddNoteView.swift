@@ -152,7 +152,6 @@ struct AddNoteView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    // TODO: Save journal data
                     addNote(date: date, isWatered: isWatering, isFertilised: isFertilised, isSun: isSun, isWind: isWind, journal: contents, image: selectedImage)
                     presentationMode.wrappedValue.dismiss()
                 } label: {

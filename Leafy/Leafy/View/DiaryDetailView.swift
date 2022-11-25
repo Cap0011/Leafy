@@ -9,13 +9,15 @@ import SwiftUI
 
 struct DiaryDetailView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    @Environment(\.managedObjectContext) var context
+    
     @State var diary: FetchedResults<Diary>.Element
     
     @State var isShowingActionSheet = false
     
     @State private var isShowingSheet = false
     @State private var isShowingNoteSheet = false
+    @State private var isNoteChanged = false
     
     @State var currentPage = 0
     
@@ -25,25 +27,32 @@ struct DiaryDetailView: View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
             VStack {
-                DiaryNoteView(diary: diary, notes: notes, isShowingSheet: $isShowingSheet, isShowingNoteSheet: $isShowingNoteSheet, currentPage: $currentPage)
+                DiaryNoteView(diary: diary, notes: notes, isShowingSheet: $isShowingSheet, isShowingNoteSheet: $isShowingNoteSheet, isChanged: $isNoteChanged, currentPage: $currentPage)
                     .padding(.bottom, 40)
                 HStack(spacing: 20) {
-                    Image(systemName: "pencil.circle.fill")
-                        .onTapGesture {
-                            // TODO: Open EditNoteView
-                            print("Edit button tapped!")
-                        }
-                    Image(systemName: "trash.circle.fill")
-                        .onTapGesture {
-                            isShowingActionSheet.toggle()
-                        }
-                        .confirmationDialog("", isPresented: $isShowingActionSheet) {
-                            Button("페이지 삭제", role: .destructive) {
-                                // TODO: Delete this note
-                                print("Delete selected!")
+                    if diary.notes?.count ?? 0 > 0 {
+                        Image(systemName: "pencil.circle.fill")
+                            .onTapGesture {
+                                // TODO: Open EditNoteView
+                                print("Edit button tapped!")
                             }
-                            Button("취소", role: .cancel) {}
-                        }
+                        Image(systemName: "trash.circle.fill")
+                            .onTapGesture {
+                                isShowingActionSheet.toggle()
+                            }
+                            .confirmationDialog("", isPresented: $isShowingActionSheet) {
+                                Button("페이지 삭제", role: .destructive) {
+                                    deleteNote(note: notes[currentPage - 1])
+                                    if currentPage != 1 {
+                                        currentPage -= 1
+                                    } else if currentPage == 1 && diary.notes?.count == 0 {
+                                        currentPage = 0
+                                    }
+                                    isNoteChanged.toggle()
+                                }
+                                Button("취소", role: .cancel) {}
+                            }
+                    }
                     NavigationLink(destination: AddNoteView(diary: diary)) {
                         Image(systemName: "plus.circle.fill")
                     }
@@ -52,6 +61,14 @@ struct DiaryDetailView: View {
                 .font(.system(size: 44))
             }
             .padding(.top, 50)
+        }
+        .onChange(of: diary.notes?.count) { _ in
+            isNoteChanged.toggle()
+            if let diaryNotes = diary.notes {
+                notes = diaryNotes.allObjects as! [Note]
+                notes.sort { $0.date ?? Date() < $1.date ?? Date() }
+            }
+            if diary.notes?.count ?? 0 > 0 && currentPage == 0 { currentPage = 1 }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -87,14 +104,30 @@ struct DiaryDetailView: View {
             if diary.notes?.count ?? 0 > 0 && currentPage == 0 { currentPage = 1 }
         }
     }
+    
+    func saveContext() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving managed object context: \(error)")
+        }
+    }
+
+    func deleteNote(note: Note) {
+        diary.removeFromNotes(note)
+        self.context.delete(note)
+        
+        saveContext()
+    }
 }
 
 struct DiaryNoteView: View {
-    let diary: Diary
-    let notes: [Note]
+    @ObservedObject var diary: Diary
+    @State var notes = [Note]()
     
     @Binding var isShowingSheet: Bool
     @Binding var isShowingNoteSheet: Bool
+    @Binding var isChanged: Bool
     
     @Binding var currentPage: Int
 
@@ -131,7 +164,7 @@ struct DiaryNoteView: View {
                             currentPage -= 1
                         }
                 }
-                if currentPage != notes.count {
+                if currentPage < notes.count {
                     Image(systemName: "arrow.forward")
                         .font(.system(size: 18, weight: .semibold))
                         .offset(x: (UIScreen.main.bounds.width / 2 - 24))
@@ -199,7 +232,9 @@ struct DiaryNoteView: View {
             }
             .font(.system(size: 18, weight: .semibold))
             .onTapGesture {
-                isShowingNoteSheet = true
+                if notes.count > 0 {
+                    isShowingNoteSheet = true
+                }
             }
             .gesture(
                 DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -224,5 +259,16 @@ struct DiaryNoteView: View {
                 .padding(.top, 20)
         }
         .foregroundColor(Color("Black"))
+        .onChange(of: isChanged) { _ in
+            notes = diary.notes?.allObjects as! [Note]
+            notes.sort { $0.date ?? Date() < $1.date ?? Date() }
+//            print("onChange: notes.count-\(notes.count), currentPage-\(currentPage)")
+//            print(diary.notes)
+            if notes.count == 0 { currentPage = 0 }
+        }
+        .onAppear {
+            notes = diary.notes?.allObjects as! [Note]
+            notes.sort { $0.date ?? Date() < $1.date ?? Date() }
+        }
     }
 }
