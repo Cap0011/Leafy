@@ -31,11 +31,11 @@ struct DiaryDetailView: View {
                     .padding(.bottom, 40)
                 HStack(spacing: 20) {
                     if diary.notes?.count ?? 0 > 0 {
-                        Image(systemName: "pencil.circle.fill")
-                            .onTapGesture {
-                                // TODO: Open EditNoteView
-                                print("Edit button tapped!")
+                        if currentPage > 0 {
+                            NavigationLink(destination: EditNoteView(diary: diary, note: notes[currentPage - 1], isChanged: $isNoteChanged)) {
+                                Image(systemName: "pencil.circle.fill")
                             }
+                        }
                         Image(systemName: "trash.circle.fill")
                             .onTapGesture {
                                 isShowingActionSheet.toggle()
@@ -262,8 +262,6 @@ struct DiaryNoteView: View {
         .onChange(of: isChanged) { _ in
             notes = diary.notes?.allObjects as! [Note]
             notes.sort { $0.date ?? Date() < $1.date ?? Date() }
-//            print("onChange: notes.count-\(notes.count), currentPage-\(currentPage)")
-//            print(diary.notes)
             if notes.count == 0 { currentPage = 0 }
         }
         .onAppear {
