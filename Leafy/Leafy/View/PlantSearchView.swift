@@ -156,15 +156,16 @@ struct NameNotFoundRow: View {
         HStack(spacing: 0) {
             Text("'")
             Text(text)
-                .font(.custom(FontManager.Pretendard.regular, size: 18))
                 .foregroundColor(Color("Green"))
                 .padding(.vertical, 8)
             Text("' 등록하기")
             Spacer()
             Image(systemName: "chevron.forward")
+                .font(.system(size: 18, weight: .semibold))
         }
         .foregroundColor(Color("Black"))
         .contentShape(Rectangle())
+        .font(.custom(FontManager.Pretendard.regular, size: 18))
         Divider()
     }
 }
