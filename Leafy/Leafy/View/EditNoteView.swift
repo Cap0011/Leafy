@@ -199,7 +199,7 @@ struct EditNoteView: View {
         note.isSun = isSun
         note.isWind = isWind
         note.journal = journal
-        note.image = image.pngData()
+        note.image = image.jpegData(compressionQuality: 1.0)
         note.diary = diary
         
         saveContext()

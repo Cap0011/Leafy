@@ -202,7 +202,6 @@ struct DiaryNoteView: View {
                                     .frame(width: 200, height: 200)
                                     .scaledToFit()
                                     .cornerRadius(8)
-                                    .rotationEffect(.degrees(90))
                             }
                         } else {
                             Image("PlaceHolder")

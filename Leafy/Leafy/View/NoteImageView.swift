@@ -18,7 +18,6 @@ struct NoteImageView: View {
                 if let image = image {
                     image
                         .resizable()
-                        .rotationEffect(.degrees(90))
                         .scaledToFit()
                 }
         }

@@ -186,7 +186,7 @@ struct AddNoteView: View {
         newNote.isSun = isSun
         newNote.isWind = isWind
         newNote.journal = journal
-        newNote.image = image.pngData()
+        newNote.image = image.jpegData(compressionQuality: 1.0)
         newNote.diary = diary
         
         if diary.notes != nil {
