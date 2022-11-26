@@ -90,7 +90,12 @@ struct DiaryDetailView: View {
             PlantingTipView(contentsNumber: Int(diary.plantNo))
         }
         .sheet(isPresented: $isShowingNoteSheet) {
-            NoteDetailView(journal: notes[currentPage - 1].journal ?? "")
+            if #available(iOS 16.0, *) {
+                NoteDetailView(journal: notes[currentPage - 1].journal ?? "")
+                    .presentationDetents([.fraction(0.75)])
+            } else {
+                NoteDetailView(journal: notes[currentPage - 1].journal ?? "")
+            }
         }
         .toast(message: "직접 등록한 식물의 관리 TIP은 제공하지 않습니다.", isShowing: $isShowingTipToast, duration: Toast.short)
         .toast(message: "해당 일지가 삭제되었습니다.", isShowing: $isShowingDeleteToast, duration: Toast.short)

@@ -22,6 +22,8 @@ struct EditDiaryView: View {
     
     @State private var paintingNumber = 0
     @State private var styleNumber = 0
+    
+    @State private var isFirstLoad = true
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -45,11 +47,14 @@ struct EditDiaryView: View {
             }
         }
         .task {
-            plantName = diary.plantName ?? ""
-            contentsNumber = Int(diary.plantNo)
-            nickname = diary.title ?? ""
-            styleNumber = Int(diary.coverNo)
-            paintingNumber = Int(diary.paintingNo)
+            if isFirstLoad {
+                plantName = diary.plantName ?? ""
+                contentsNumber = Int(diary.plantNo)
+                nickname = diary.title ?? ""
+                styleNumber = Int(diary.coverNo)
+                paintingNumber = Int(diary.paintingNo)
+                isFirstLoad = false
+            }
         }
         .onTapGesture {
             dismissKeyboard()

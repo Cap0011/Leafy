@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct PlantSearchView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    let dictionary = ["몬스테라": 16449, "떡갈잎 고무나무": 14911, "아이비": 19461, "산세베리아": 19448, "파키라": 13248, "무늬접란": 18599, "돈나무": 13340, "스킨답서스": 19716]
+    
     @State var query = ""
     @ObservedObject var plantListStore = PlantListDataStore.shared
     @State var isLoading = false
@@ -34,7 +37,7 @@ struct PlantSearchView: View {
                             .font(.custom(FontManager.Pretendard.medium, size: 15))
                             .foregroundColor(Color("Black"))
                             .padding(.vertical, 20)
-                        recommendListScrollView(plantName: $plantName, contentsNumber: $contentsNumber)
+                        recommendList
                     } else {
                         queryListScrollView(plantList: plantListStore.plantItems, queryString: query, plantName: $plantName, contentsNumber: $contentsNumber)
                             .padding(.top, 8)
@@ -54,25 +57,16 @@ struct PlantSearchView: View {
         }
     }
     
-    struct recommendListScrollView: View {
-        @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-        
-        let dictionary = ["몬스테라": 14663, "떡갈잎 고무나무": 14911, "아이비": 19461, "산세베리아": 19448, "파키라": 13248, "무늬접란": 18599, "돈나무": 13340, "스킨답서스": 19716]
-        
-        @Binding var plantName: String
-        @Binding var contentsNumber: Int
-        
-        var body: some View {
-            ScrollView(showsIndicators: false) {
-                ForEach(Array(dictionary), id: \.key) { key, value in
-                    queryRow(text: key, isGreen: true)
-                        .onTapGesture {
-                            plantName = key
-                            contentsNumber = value
-                            PlantListDataStore.shared.plantItems = [PlantInfo]()
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                }
+    var recommendList: some View {
+        ScrollView(showsIndicators: false) {
+            ForEach(Array(dictionary).sorted { $0.key < $1.key }, id: \.key) { key, value in
+                queryRow(text: key, isGreen: true)
+                    .onTapGesture {
+                        plantName = key
+                        contentsNumber = value
+                        PlantListDataStore.shared.plantItems = [PlantInfo]()
+                        presentationMode.wrappedValue.dismiss()
+                    }
             }
         }
     }
