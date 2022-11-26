@@ -16,22 +16,34 @@ struct DiaryListView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
-            VStack {
-                ForEach(diaries) { diary in
-                    NavigationLink(destination: DiaryDetailView(diary: diary)) {
-                        DiaryListRow(diary: diary)
-                            .padding(.vertical, 20)
-                            .contentShape(Rectangle())
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    ForEach(diaries) { diary in
+                        NavigationLink(destination: DiaryDetailView(diary: diary)) {
+                            DiaryListRow(diary: diary)
+                                .padding(.vertical, 20)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(FlatLinkStyle())
+                        
+                        Divider()
                     }
-                    .buttonStyle(FlatLinkStyle())
-                    
-                    Divider()
                 }
+                .padding(.horizontal, 24)
+                .padding(.top, 20)
             }
-            .padding(.horizontal, 24)
-            .padding(.top, 40)
         }
         .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: AddDiaryView()) {
+                    Image(systemName: "plus")
+                        .foregroundColor(Color("Black"))
+                        .font(.system(size: 18, weight: .semibold))
+                }
+            }
+        }
     }
 }
 
