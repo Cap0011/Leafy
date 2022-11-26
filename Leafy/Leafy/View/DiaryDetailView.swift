@@ -218,6 +218,11 @@ struct DiaryNoteView: View {
                     }
                 }
                 .padding(.top)
+                if notes.count == 0 {
+                    Text("✍️ 일지를 작성해보세요")
+                        .font(.custom(FontManager.hand, size: 20))
+                        .foregroundColor(Color("GreyText"))
+                }
             }
             .font(.system(size: 18, weight: .semibold))
             .onTapGesture {
