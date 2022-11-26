@@ -183,6 +183,9 @@ struct EditNoteView: View {
         .sheet(isPresented: $isGalleryChoosed) {
             ImagePicker(selectedImage: $selectedImage, sourceType: .photoLibrary)
         }
+        .onTapGesture {
+            dismissKeyboard()
+        }
     }
     
     func saveContext() {
