@@ -13,6 +13,10 @@ struct DiaryListView: View {
         sortDescriptors: []
     ) var diaries: FetchedResults<Diary>
     
+    @State var isShowingEditToast = false
+    @State var isShowingDeleteToast = false
+    @State var isShowingAddToast = false
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
@@ -20,7 +24,7 @@ struct DiaryListView: View {
                 VStack {
                     ForEach(diaries) { diary in
                         NavigationLink(destination: DiaryDetailView(diary: diary)) {
-                            DiaryListRow(diary: diary)
+                            DiaryListRow(diary: diary, isShowingEditToast: $isShowingEditToast, isShowingDeleteToast: $isShowingDeleteToast)
                                 .padding(.vertical, 20)
                                 .contentShape(Rectangle())
                         }
@@ -33,6 +37,9 @@ struct DiaryListView: View {
                 .padding(.top, 20)
             }
         }
+        .toast(message: "해당 다이어리가 삭제되었습니다.", isShowing: $isShowingDeleteToast, duration: Toast.short)
+        .toast(message: "새로운 다이어리가 추가되었습니다.", isShowing: $isShowingAddToast, duration: Toast.short)
+        .toast(message: "해당 다이어리가 수정되었습니다.", isShowing: $isShowingEditToast, duration: Toast.short)
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -42,7 +49,7 @@ struct DiaryListView: View {
                     .foregroundColor(Color("Black"))
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: AddDiaryView()) {
+                NavigationLink(destination: AddDiaryView(isShowingToast: $isShowingAddToast)) {
                     Image(systemName: "plus")
                         .foregroundColor(Color("Black"))
                         .font(.system(size: 18, weight: .semibold))
@@ -58,6 +65,8 @@ struct DiaryListRow: View {
     @ObservedObject var diary: Diary
     
     @State var isShowingActionSheet = false
+    @Binding var isShowingEditToast: Bool
+    @Binding var isShowingDeleteToast: Bool
     
     var body: some View {
         HStack(spacing: 20) {
@@ -84,13 +93,14 @@ struct DiaryListRow: View {
             Spacer()
             
             HStack(spacing: 16) {
-                NavigationLink(destination: EditDiaryView(diary: diary)) {
+                NavigationLink(destination: EditDiaryView(diary: diary, isShowingToast: $isShowingEditToast)) {
                     Image(systemName: "pencil")
                 }
                 Image(systemName: "trash")
                     .confirmationDialog("", isPresented: $isShowingActionSheet) {
                         Button("다이어리 삭제", role: .destructive) {
                             deleteDiary(diary: diary)
+                            isShowingDeleteToast.toggle()
                         }
                         Button("취소", role: .cancel) {}
                     }

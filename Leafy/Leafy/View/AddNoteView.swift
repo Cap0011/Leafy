@@ -13,6 +13,8 @@ struct AddNoteView: View {
     
     @State var diary: FetchedResults<Diary>.Element
     
+    @Binding var isShowingToast: Bool
+    
     @State private var isShowingActionSheet = false
     @State private var isCameraChoosed = false
     @State private var isGalleryChoosed = false
@@ -158,6 +160,7 @@ struct AddNoteView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     addNote(date: date, isWatered: isWatering, isFertilised: isFertilised, isSun: isSun, isWind: isWind, journal: contents, image: selectedImage)
+                    isShowingToast.toggle()
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Label("Save", systemImage: "checkmark")

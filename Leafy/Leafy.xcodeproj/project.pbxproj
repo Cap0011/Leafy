@@ -30,6 +30,7 @@
 		C73555E1292FB838008E30F9 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555E0292FB838008E30F9 /* PersistenceController.swift */; };
 		C73555E3292FCD47008E30F9 /* EditDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555E2292FCD47008E30F9 /* EditDiaryView.swift */; };
 		C73555E529311E25008E30F9 /* EditNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555E429311E25008E30F9 /* EditNoteView.swift */; };
+		C73555FC29324C25008E30F9 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555FB29324C25008E30F9 /* Toast.swift */; };
 		C79E139D28E9B0990010C4BA /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E139C28E9B0990010C4BA /* DiaryListView.swift */; };
 		C79E139F28E9C0590010C4BA /* FlatLinkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */; };
 		C79E13A328EB169A0010C4BA /* AddDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E13A228EB169A0010C4BA /* AddDiaryView.swift */; };
@@ -68,6 +69,7 @@
 		C73555E0292FB838008E30F9 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		C73555E2292FCD47008E30F9 /* EditDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDiaryView.swift; sourceTree = "<group>"; };
 		C73555E429311E25008E30F9 /* EditNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteView.swift; sourceTree = "<group>"; };
+		C73555FB29324C25008E30F9 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		C79E139C28E9B0990010C4BA /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkStyle.swift; sourceTree = "<group>"; };
 		C79E13A228EB169A0010C4BA /* AddDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiaryView.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				C79E13B328EDEAD90010C4BA /* Utils.swift */,
 				C73555D7292F9626008E30F9 /* Constant.swift */,
 				C73555E0292FB838008E30F9 /* PersistenceController.swift */,
+				C73555FB29324C25008E30F9 /* Toast.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				C73555DA292FA7CE008E30F9 /* NoteDetailView.swift in Sources */,
 				C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */,
 				C70C12ED28D758D7003DF92A /* AddNoteView.swift in Sources */,
+				C73555FC29324C25008E30F9 /* Toast.swift in Sources */,
 				C73555E3292FCD47008E30F9 /* EditDiaryView.swift in Sources */,
 				C79E13B428EDEAD90010C4BA /* Utils.swift in Sources */,
 				C79E13A328EB169A0010C4BA /* AddDiaryView.swift in Sources */,

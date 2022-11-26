@@ -16,7 +16,11 @@ struct MainView: View {
     ) var diaries: FetchedResults<Diary>
     
     @State var selectedDiary: FetchedResults<Diary>.Element?
+    
     @State var isShowingActionSheet = false
+    @State var isShowingEditToast = false
+    @State var isShowingDeleteToast = false
+    @State var isShowingAddToast = false
     
     @State var isDeleted = false
     
@@ -29,13 +33,14 @@ struct MainView: View {
                     HStack(spacing: 20) {
                         if diaries.count > 0 {
                             if let selectedDiary {
-                                NavigationLink(destination: EditDiaryView(diary: selectedDiary)) {
+                                NavigationLink(destination: EditDiaryView(diary: selectedDiary, isShowingToast: $isShowingEditToast)) {
                                     Image("edit")
                                 }
                             Image("trash")
                                 .confirmationDialog("", isPresented: $isShowingActionSheet) {
                                     Button("다이어리 삭제", role: .destructive) {
                                         deleteDiary(diary: selectedDiary)
+                                        isShowingDeleteToast.toggle()
                                         isDeleted.toggle()
                                     }
                                     Button("취소", role: .cancel) {}
@@ -45,7 +50,7 @@ struct MainView: View {
                                 }
                             }
                         }
-                        NavigationLink(destination: AddDiaryView()) {
+                        NavigationLink(destination: AddDiaryView(isShowingToast: $isShowingAddToast)) {
                             Image("plus")
                         }
                         .buttonStyle(FlatLinkStyle())
@@ -66,6 +71,9 @@ struct MainView: View {
                 }
             }
         }
+        .toast(message: "해당 다이어리가 삭제되었습니다.", isShowing: $isShowingDeleteToast, duration: Toast.short)
+        .toast(message: "새로운 다이어리가 추가되었습니다.", isShowing: $isShowingAddToast, duration: Toast.short)
+        .toast(message: "해당 다이어리가 수정되었습니다.", isShowing: $isShowingEditToast, duration: Toast.short)
         .onAppear {
             UITextView.appearance().backgroundColor = .clear
         }

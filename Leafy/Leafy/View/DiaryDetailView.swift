@@ -19,6 +19,11 @@ struct DiaryDetailView: View {
     @State private var isShowingNoteSheet = false
     @State private var isNoteChanged = false
     
+    @State private var isShowingTipToast = false
+    @State private var isShowingEditToast = false
+    @State private var isShowingAddToast = false
+    @State private var isShowingDeleteToast = false
+    
     @State var currentPage = 0
     
     @State var notes = [Note]()
@@ -27,12 +32,12 @@ struct DiaryDetailView: View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
             VStack {
-                DiaryNoteView(diary: diary, notes: notes, isShowingSheet: $isShowingSheet, isShowingNoteSheet: $isShowingNoteSheet, isChanged: $isNoteChanged, currentPage: $currentPage)
+                DiaryNoteView(diary: diary, notes: notes, isShowingSheet: $isShowingSheet, isShowingNoteSheet: $isShowingNoteSheet, isChanged: $isNoteChanged, isShowingTipToast: $isShowingTipToast, currentPage: $currentPage)
                     .padding(.bottom, 40)
                 HStack(spacing: 20) {
                     if diary.notes?.count ?? 0 > 0 {
                         if currentPage > 0 {
-                            NavigationLink(destination: EditNoteView(diary: diary, note: notes[currentPage - 1], isChanged: $isNoteChanged)) {
+                            NavigationLink(destination: EditNoteView(diary: diary, note: notes[currentPage - 1], isShowingToast: $isShowingEditToast, isChanged: $isNoteChanged)) {
                                 Image("edit")
                             }
                         }
@@ -43,6 +48,7 @@ struct DiaryDetailView: View {
                             .confirmationDialog("", isPresented: $isShowingActionSheet) {
                                 Button("페이지 삭제", role: .destructive) {
                                     deleteNote(note: notes[currentPage - 1])
+                                    isShowingDeleteToast.toggle()
                                     if currentPage != 1 {
                                         currentPage -= 1
                                     } else if currentPage == 1 && diary.notes?.count == 0 {
@@ -53,7 +59,7 @@ struct DiaryDetailView: View {
                                 Button("취소", role: .cancel) {}
                             }
                     }
-                    NavigationLink(destination: AddNoteView(diary: diary)) {
+                    NavigationLink(destination: AddNoteView(diary: diary, isShowingToast: $isShowingAddToast)) {
                         Image("plus")
                     }
                     .buttonStyle(FlatLinkStyle())
@@ -86,6 +92,10 @@ struct DiaryDetailView: View {
         .sheet(isPresented: $isShowingNoteSheet) {
             NoteDetailView(journal: notes[currentPage - 1].journal ?? "")
         }
+        .toast(message: "직접 등록한 식물의 관리 TIP은 제공하지 않습니다.", isShowing: $isShowingTipToast, duration: Toast.short)
+        .toast(message: "해당 일지가 삭제되었습니다.", isShowing: $isShowingDeleteToast, duration: Toast.short)
+        .toast(message: "새로운 일지가 추가되었습니다.", isShowing: $isShowingAddToast, duration: Toast.short)
+        .toast(message: "해당 일지가 수정되었습니다.", isShowing: $isShowingEditToast, duration: Toast.short)
         .task {
             if let diaryNotes = diary.notes {
                 notes = diaryNotes.allObjects as! [Note]
@@ -118,6 +128,7 @@ struct DiaryNoteView: View {
     @Binding var isShowingSheet: Bool
     @Binding var isShowingNoteSheet: Bool
     @Binding var isChanged: Bool
+    @Binding var isShowingTipToast: Bool
     
     @Binding var currentPage: Int
 
@@ -133,7 +144,11 @@ struct DiaryNoteView: View {
                 .font(.custom(FontManager.Pretendard.medium, size: 13))
                 .background(RoundedRectangle(cornerRadius: 16).foregroundColor(Color("Black")).frame(height: 32))
                 .onTapGesture {
-                    isShowingSheet.toggle()
+                    if diary.plantNo >= 0 {
+                        isShowingSheet.toggle()
+                    } else {
+                        isShowingTipToast.toggle()
+                    }
                 }
 
             ZStack {

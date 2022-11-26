@@ -11,6 +11,8 @@ struct AddDiaryView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var context
     
+    @Binding var isShowingToast: Bool
+    
     @State private var plantName = ""
     @State private var contentsNumber = -1
     
@@ -61,6 +63,7 @@ struct AddDiaryView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     addDiary(plantName: plantName, plantNo: contentsNumber, title: nickname, coverNo: styleNumber, paintingNo: paintingNumber)
+                    isShowingToast.toggle()
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Label("Save", systemImage: "checkmark")
@@ -227,6 +230,6 @@ struct DiaryCustomScrollView: View {
 
 struct AddDiaryView_Previews: PreviewProvider {
     static var previews: some View {
-        AddDiaryView()
+        AddDiaryView(isShowingToast: .constant(false))
     }
 }

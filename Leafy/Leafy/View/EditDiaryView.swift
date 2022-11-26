@@ -13,6 +13,8 @@ struct EditDiaryView: View {
     
     @State var diary: FetchedResults<Diary>.Element
     
+    @Binding var isShowingToast: Bool
+    
     @State private var plantName = ""
     @State private var contentsNumber = -1
     
@@ -70,6 +72,7 @@ struct EditDiaryView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     editDiary(plantName: plantName, plantNo: contentsNumber, title: nickname, coverNo: styleNumber, paintingNo: paintingNumber)
+                    isShowingToast.toggle()
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Label("Save", systemImage: "checkmark")
