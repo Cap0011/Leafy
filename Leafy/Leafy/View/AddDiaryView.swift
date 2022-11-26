@@ -23,15 +23,18 @@ struct AddDiaryView: View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
             ScrollView(showsIndicators: false) {
-                VStack(spacing: 24) {
+                VStack(spacing: 0) {
                     SearchbarEntryView(plantName: $plantName, contentsNo: $contentsNumber)
                         .padding(.horizontal, 24)
+                        .padding(.bottom, 24)
                     titleLable
+                        .padding(.bottom, 10)
                     NicknameTextField(nickname: $nickname)
-                        .padding(.top, -14)
+                        .padding(.bottom, 16)
                     DiaryCoverImage(style: styleNumber, painting: paintingNumber)
                         .padding(.bottom, 24)
                     DiaryCustomScrollView(number: $paintingNumber, title: "커버 이미지", imageName: "Painting", count: 9, spacing: 16)
+                        .padding(.bottom, 16)
                     DiaryCustomScrollView(number: $styleNumber, title: "커버 색상", imageName: "Cover", count: 8, spacing: 24)
                 }
                 .padding(.top, 24)
