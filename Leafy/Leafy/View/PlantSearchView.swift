@@ -18,7 +18,7 @@ struct PlantSearchView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Color("Background").ignoresSafeArea()
-            VStack {
+            VStack(alignment: .leading, spacing: 0) {
                 Searchbar(text: $query, isLoading: $isLoading)
                 if isLoading {
                     HStack {
@@ -29,8 +29,16 @@ struct PlantSearchView: View {
                     }
                     .padding(.top, 8)
                 } else {
-                    queryListScrollView(plantList: plantListStore.plantItems, queryString: query, plantName: $plantName, contentsNumber: $contentsNumber)
-                        .padding(.top, 8)
+                    if query.isEmpty {
+                        Text("인기 식물")
+                            .font(.custom(FontManager.Pretendard.medium, size: 15))
+                            .foregroundColor(Color("Black"))
+                            .padding(.vertical, 20)
+                        recommendListScrollView(plantName: $plantName, contentsNumber: $contentsNumber)
+                    } else {
+                        queryListScrollView(plantList: plantListStore.plantItems, queryString: query, plantName: $plantName, contentsNumber: $contentsNumber)
+                            .padding(.top, 8)
+                    }
                 }
             }
             .padding(24)
@@ -42,6 +50,29 @@ struct PlantSearchView: View {
                 Text("식물 검색")
                     .font(.custom(FontManager.Pretendard.semiBold, size: 18))
                     .foregroundColor(Color("Black"))
+            }
+        }
+    }
+    
+    struct recommendListScrollView: View {
+        @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+        
+        let dictionary = ["몬스테라": 14663, "떡갈잎 고무나무": 14911, "아이비": 19461, "산세베리아": 19448, "파키라": 13248, "무늬접란": 18599, "돈나무": 13340, "스킨답서스": 19716]
+        
+        @Binding var plantName: String
+        @Binding var contentsNumber: Int
+        
+        var body: some View {
+            ScrollView(showsIndicators: false) {
+                ForEach(Array(dictionary), id: \.key) { key, value in
+                    queryRow(text: key, isGreen: true)
+                        .onTapGesture {
+                            plantName = key
+                            contentsNumber = value
+                            PlantListDataStore.shared.plantItems = [PlantInfo]()
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                }
             }
         }
     }
@@ -117,7 +148,7 @@ struct queryListScrollView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             ForEach(plantList, id: \.self.cntntsNo) { plant in
-                queryRow(text: plant.plantName ?? "")
+                queryRow(text: plant.plantName ?? "", isGreen: false)
                     .onAppear {
                         if plant.plantName == queryString {
                             isExactNameFound = true
@@ -144,12 +175,13 @@ struct queryListScrollView: View {
 
 struct queryRow: View {
     let text: String
+    let isGreen: Bool
     
     var body: some View {
         HStack {
             Text(text)
                 .font(.custom(FontManager.Pretendard.regular, size: 18))
-                .foregroundColor(Color("Black"))
+                .foregroundColor(isGreen ? Color("Green") : Color("Black"))
                 .padding(.vertical, 8)
             Spacer()
         }
