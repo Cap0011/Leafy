@@ -50,6 +50,11 @@ struct AddDiaryView: View {
                         .foregroundColor(Color("Black"))
                 }
             }
+            ToolbarItem(placement: .principal) {
+                Text("다이어리 추가")
+                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
+                    .foregroundColor(Color("Black"))
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     addDiary(plantName: plantName, plantNo: contentsNumber, title: nickname, coverNo: styleNumber, paintingNo: paintingNumber)

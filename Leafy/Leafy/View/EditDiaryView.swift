@@ -59,6 +59,11 @@ struct EditDiaryView: View {
                         .foregroundColor(Color("Black"))
                 }
             }
+            ToolbarItem(placement: .principal) {
+                Text("다이어리 수정")
+                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
+                    .foregroundColor(Color("Black"))
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     editDiary(plantName: plantName, plantNo: contentsNumber, title: nickname, coverNo: styleNumber, paintingNo: paintingNumber)

@@ -35,6 +35,15 @@ struct PlantSearchView: View {
             }
             .padding(24)
         }
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("식물 검색")
+                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
+                    .foregroundColor(Color("Black"))
+            }
+        }
     }
 }
 

@@ -150,6 +150,11 @@ struct AddNoteView: View {
                         .foregroundColor(Color("Black"))
                 }
             }
+            ToolbarItem(placement: .principal) {
+                Text("일지 추가")
+                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
+                    .foregroundColor(Color("Black"))
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     addNote(date: date, isWatered: isWatering, isFertilised: isFertilised, isSun: isSun, isWind: isWind, journal: contents, image: selectedImage)
