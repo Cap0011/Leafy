@@ -178,6 +178,7 @@ struct DiaryCoverView: View {
                     .padding(.bottom, 2)
                 Text(diary.plantName ?? "식물 종류")
                     .font(.custom(FontManager.Pretendard.medium, size: 15))
+                    .foregroundColor(Color("GreyText"))
             }
             VStack(spacing: 20) {
                 NavigationLink(destination: DiaryDetailView(diary: diary)) {

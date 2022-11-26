@@ -36,6 +36,11 @@ struct DiaryListView: View {
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("다이어리 목록")
+                    .font(.custom(FontManager.Pretendard.semiBold, size: 18))
+                    .foregroundColor(Color("Black"))
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(destination: AddDiaryView()) {
                     Image(systemName: "plus")
@@ -73,6 +78,7 @@ struct DiaryListRow: View {
                     .font(.custom(FontManager.Pretendard.semiBold, size: 18))
                 Text(diary.plantName ?? "식물 종류")
                     .font(.custom(FontManager.Pretendard.regular, size: 15))
+                    .foregroundColor(Color("GreyText"))
             }
              
             Spacer()
