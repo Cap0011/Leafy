@@ -33,9 +33,9 @@ struct AddDiaryView: View {
                         .padding(.bottom, 16)
                     DiaryCoverImage(style: styleNumber, painting: paintingNumber)
                         .padding(.bottom, 24)
-                    DiaryCustomScrollView(number: $paintingNumber, title: "커버 이미지", imageName: "Painting", count: 9, spacing: 16)
+                    DiaryCustomScrollView(number: $paintingNumber, isPainting: true, title: "커버 이미지", imageName: "Painting", count: 9, spacing: 16)
                         .padding(.bottom, 16)
-                    DiaryCustomScrollView(number: $styleNumber, title: "커버 색상", imageName: "Cover", count: 8, spacing: 24)
+                    DiaryCustomScrollView(number: $styleNumber, isPainting: false, title: "커버 색상", imageName: "Cover", count: 8, spacing: 24)
                 }
                 .padding(.top, 24)
             }
@@ -181,6 +181,8 @@ struct DiaryCoverImage: View {
 struct DiaryCustomScrollView: View {
     @Binding var number: Int
     
+    let isPainting: Bool
+    
     let title: String
     let imageName: String
     let count: Int
@@ -192,18 +194,32 @@ struct DiaryCustomScrollView: View {
                 .font(.custom(FontManager.Pretendard.medium, size: 15))
                 .padding(.leading, 24)
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: spacing) {
-                    ForEach(0..<count, id: \.self) { idx in
-                        Image("\(imageName)\(idx)")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 64)
-                            .onTapGesture {
-                                number = idx
+                ScrollViewReader { value in
+                    HStack(spacing: spacing) {
+                        ForEach(0..<count, id: \.self) { idx in
+                            ZStack(alignment: .topTrailing) {
+                                Image("\(imageName)\(idx)")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 64)
+                                    .onTapGesture {
+                                        number = idx
+                                    }
+                                if number == idx {
+                                    Image("checked")
+                                        .padding(isPainting ? 0 : 4)
+                                }
                             }
+                            .id(idx)
+                        }
+                    }
+                    .padding(.horizontal, 24)
+                    .onChange(of: number) { number in
+                        withAnimation {
+                            value.scrollTo(number, anchor: .center)
+                        }
                     }
                 }
-                .padding(.horizontal, 24)
             }
         }
     }

@@ -35,9 +35,9 @@ struct EditDiaryView: View {
                         .padding(.bottom, 16)
                     DiaryCoverImage(style: styleNumber, painting: paintingNumber)
                         .padding(.bottom, 24)
-                    DiaryCustomScrollView(number: $paintingNumber, title: "커버 이미지", imageName: "Painting", count: 9, spacing: 16)
+                    DiaryCustomScrollView(number: $paintingNumber, isPainting: true, title: "커버 이미지", imageName: "Painting", count: 9, spacing: 16)
                         .padding(.bottom, 16)
-                    DiaryCustomScrollView(number: $styleNumber, title: "커버 색상", imageName: "Cover", count: 8, spacing: 24)
+                    DiaryCustomScrollView(number: $styleNumber, isPainting: false, title: "커버 색상", imageName: "Cover", count: 8, spacing: 24)
                 }
                 .padding(.top, 24)
             }
