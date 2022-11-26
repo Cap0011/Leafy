@@ -33,10 +33,10 @@ struct DiaryDetailView: View {
                     if diary.notes?.count ?? 0 > 0 {
                         if currentPage > 0 {
                             NavigationLink(destination: EditNoteView(diary: diary, note: notes[currentPage - 1], isChanged: $isNoteChanged)) {
-                                Image(systemName: "pencil.circle.fill")
+                                Image("edit")
                             }
                         }
-                        Image(systemName: "trash.circle.fill")
+                        Image("trash")
                             .onTapGesture {
                                 isShowingActionSheet.toggle()
                             }
@@ -54,7 +54,7 @@ struct DiaryDetailView: View {
                             }
                     }
                     NavigationLink(destination: AddNoteView(diary: diary)) {
-                        Image(systemName: "plus.circle.fill")
+                        Image("plus")
                     }
                     .buttonStyle(FlatLinkStyle())
                 }

@@ -30,12 +30,11 @@ struct MainView: View {
                         if diaries.count > 0 {
                             if let selectedDiary {
                                 NavigationLink(destination: EditDiaryView(diary: selectedDiary)) {
-                                    Image(systemName: "pencil.circle.fill")
+                                    Image("edit")
                                 }
-                            Image(systemName: "trash.circle.fill")
+                            Image("trash")
                                 .confirmationDialog("", isPresented: $isShowingActionSheet) {
                                     Button("다이어리 삭제", role: .destructive) {
-                                        // TODO: Delete the diary
                                         deleteDiary(diary: selectedDiary)
                                         isDeleted.toggle()
                                     }
@@ -47,7 +46,7 @@ struct MainView: View {
                             }
                         }
                         NavigationLink(destination: AddDiaryView()) {
-                            Image(systemName: "plus.circle.fill")
+                            Image("plus")
                         }
                         .buttonStyle(FlatLinkStyle())
                     }
