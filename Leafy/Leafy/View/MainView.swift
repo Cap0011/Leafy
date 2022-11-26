@@ -61,6 +61,7 @@ struct MainView: View {
             }
             .preferredColorScheme(.light)
             .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: DiaryListView()) {
@@ -112,58 +113,68 @@ struct DiaryCoversView: View {
     private let spacing: CGFloat = 30
     
     var body: some View {
-        GeometryReader { proxy in
-            HStack(spacing: self.spacing) {
-                ForEach(Array(diaries.enumerated()), id: \.offset) { idx, diary in
-                    DiaryCoverView(diary: diary)
-                        .frame(width: 250)
-                        .opacity(currentItem == idx ? 1.0 : 0.8)
-                        .scaleEffect(currentItem == idx ? 1.0 : 0.9)
-                }
+        if diaries.count == 0 {
+            VStack(spacing: 20) {
+                Image("Demo")
+                Text("📚 다이어리를 추가해보세요")
+                    .foregroundColor(Color("Black"))
+                    .font(.custom(FontManager.Pretendard.medium, size: 15))
             }
-            .onAppear {
-                if diaries.count > 0 {
+            .padding(.top, 90)
+        } else {
+            GeometryReader { proxy in
+                HStack(spacing: self.spacing) {
+                    ForEach(Array(diaries.enumerated()), id: \.offset) { idx, diary in
+                        DiaryCoverView(diary: diary)
+                            .frame(width: 250)
+                            .opacity(currentItem == idx ? 1.0 : 0.8)
+                            .scaleEffect(currentItem == idx ? 1.0 : 0.9)
+                    }
+                }
+                .onAppear {
+                    if diaries.count > 0 {
+                        currentDiary = diaries[currentItem]
+                    }
+                }
+                .onChange(of: currentItem) { idx in
                     currentDiary = diaries[currentItem]
                 }
-            }
-            .onChange(of: currentItem) { idx in
-                currentDiary = diaries[currentItem]
-            }
-            .onChange(of: isDelete) { _ in
-                if diaries.count > 0 {
-                    if currentItem != 0 && diaries.count == currentItem {
-                        moveToLeft()
-                        currentItem -= 1
+                .onChange(of: isDelete) { _ in
+                    if diaries.count > 0 {
+                        if currentItem != 0 && diaries.count == currentItem {
+                            moveToLeft()
+                            currentItem -= 1
+                        }
+                    } else {
+                        currentDiary = nil
                     }
-                } else {
-                    currentDiary = nil
                 }
-            }
-            .offset(x: offset)
-            .padding(.horizontal, 70)
-            .highPriorityGesture(
-                DragGesture()
-                    .onEnded { value in
-                        withAnimation {
-                            if value.translation.width > 0 {
-                                // Swipe to left
-                                if currentItem != 0 {
-                                    moveToLeft()
-                                    currentItem -= 1
-                                }
-                            } else {
-                                // Swipe to right
-                                if currentItem != diaries.count - 1 {
-                                    moveToRight()
-                                    currentItem += 1
+                .offset(x: offset)
+                .padding(.horizontal, 70)
+                .highPriorityGesture(
+                    DragGesture()
+                        .onEnded { value in
+                            withAnimation {
+                                if value.translation.width > 0 {
+                                    // Swipe to left
+                                    if currentItem != 0 {
+                                        moveToLeft()
+                                        currentItem -= 1
+                                    }
+                                } else {
+                                    // Swipe to right
+                                    if currentItem != diaries.count - 1 {
+                                        moveToRight()
+                                        currentItem += 1
+                                    }
                                 }
                             }
                         }
-                    }
-            )
+                )
+            }
+            .frame(height: 500)
+            .animation(.easeInOut, value: offset == 0)
         }
-        .frame(height: 500)
-        .animation(.easeInOut, value: offset == 0)
     }
     
     func moveToLeft() {

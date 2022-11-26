@@ -22,15 +22,22 @@ struct DiaryListView: View {
             Color("Background").ignoresSafeArea()
             ScrollView(showsIndicators: false) {
                 VStack {
-                    ForEach(diaries) { diary in
-                        NavigationLink(destination: DiaryDetailView(diary: diary)) {
-                            DiaryListRow(diary: diary, isShowingEditToast: $isShowingEditToast, isShowingDeleteToast: $isShowingDeleteToast)
-                                .padding(.vertical, 20)
-                                .contentShape(Rectangle())
+                    if diaries.count == 0 {
+                        Text("📚 다이어리를 추가해보세요")
+                            .foregroundColor(Color("Black"))
+                            .font(.custom(FontManager.Pretendard.medium, size: 15))
+                            .padding(.top, 300)
+                    } else {
+                        ForEach(diaries) { diary in
+                            NavigationLink(destination: DiaryDetailView(diary: diary)) {
+                                DiaryListRow(diary: diary, isShowingEditToast: $isShowingEditToast, isShowingDeleteToast: $isShowingDeleteToast)
+                                    .padding(.vertical, 20)
+                                    .contentShape(Rectangle())
+                            }
+                            .buttonStyle(FlatLinkStyle())
+                            
+                            Divider()
                         }
-                        .buttonStyle(FlatLinkStyle())
-                        
-                        Divider()
                     }
                 }
                 .padding(.horizontal, 24)
