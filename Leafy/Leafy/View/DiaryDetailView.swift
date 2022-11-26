@@ -81,20 +81,10 @@ struct DiaryDetailView: View {
         }
         .navigationTitle("")
         .sheet(isPresented: $isShowingSheet) {
-            if #available(iOS 16.0, *) {
-                PlantingTipView(contentsNumber: Int(diary.plantNo))
-                    .presentationDetents([.fraction(0.75)])
-            } else {
-                PlantingTipView(contentsNumber: Int(diary.plantNo))
-            }
+            PlantingTipView(contentsNumber: Int(diary.plantNo))
         }
         .sheet(isPresented: $isShowingNoteSheet) {
-            if #available(iOS 16.0, *) {
-                NoteDetailView(journal: notes[currentPage - 1].journal ?? "")
-                    .presentationDetents([.fraction(0.75)])
-            } else {
-                NoteDetailView(journal: notes[currentPage - 1].journal ?? "")
-            }
+            NoteDetailView(journal: notes[currentPage - 1].journal ?? "")
         }
         .task {
             if let diaryNotes = diary.notes {

@@ -10,6 +10,8 @@ import SwiftUI
 struct PlantingTipView: View {
     let contentsNumber: Int
     
+    @State var plantName = ""
+    
     @State var temperature = ""
     @State var humidity = ""
     @State var sunlight = ""
@@ -27,6 +29,11 @@ struct PlantingTipView: View {
                 .foregroundColor(Color("Unselected"))
                 .frame(width: 50, height: 4)
                 .padding(.top, 12)
+            Text("\(plantName) 관리 TIP")
+                .foregroundColor(Color("Black"))
+                .padding(.horizontal, 12)
+                .font(.custom(FontManager.Pretendard.medium, size: 13))
+                .padding(.top, 20)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 16) {
                     if isLoading {
@@ -81,18 +88,19 @@ struct PlantingTipView: View {
                                 }
                                 .font(.custom(FontManager.Pretendard.medium, size: 15))
                             }
-                            .padding(24)
+                            .padding(16)
                         }
                         .frame(height: 220)
                         Spacer()
                     }
                 }
-                .padding(.top, 32)
+                .padding(.top, 10)
                 .padding(.horizontal, 24)
                 .task {
                     if contentsNumber >= 0 {
                         let dataStore = PlantDataStore.shared
                         try? await dataStore.loadPlantData(contentsNumber: contentsNumber)
+                        plantName = dataStore.plantName
                         temperature = dataStore.temperature
                         humidity = dataStore.humidity
                         sunlight = dataStore.light
