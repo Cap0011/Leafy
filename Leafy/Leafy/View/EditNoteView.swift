@@ -103,10 +103,9 @@ struct EditNoteView: View {
                         // Text editor
                         ZStack(alignment: .topLeading) {
                             VStack(spacing: 40) {
-                                MyUnderline()
-                                MyUnderline()
-                                MyUnderline()
-                                MyUnderline()
+                                ForEach(0..<10) { _ in
+                                    MyUnderline()
+                                }
                             }
                             .padding(.top, 40)
                             if contents.isEmpty {
