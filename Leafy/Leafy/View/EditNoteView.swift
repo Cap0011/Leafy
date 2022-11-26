@@ -48,6 +48,7 @@ struct EditNoteView: View {
                             Image(systemName: "plus.circle.fill")
                                 .foregroundColor(Color("Black"))
                                 .font(.system(size: 44))
+                                .background(Circle().foregroundColor(.white).frame(width: 30, height: 30))
                         }
                         .frame(height: UIScreen.main.bounds.width - 48)
                         .padding(.top, 24)
