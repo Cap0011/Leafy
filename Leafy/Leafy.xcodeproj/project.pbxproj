@@ -31,6 +31,8 @@
 		C73555E3292FCD47008E30F9 /* EditDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555E2292FCD47008E30F9 /* EditDiaryView.swift */; };
 		C73555E529311E25008E30F9 /* EditNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555E429311E25008E30F9 /* EditNoteView.swift */; };
 		C73555FC29324C25008E30F9 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73555FB29324C25008E30F9 /* Toast.swift */; };
+		C7355602293F107E008E30F9 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7355601293F107E008E30F9 /* LaunchScreenView.swift */; };
+		C7355604293F10CB008E30F9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7355603293F10CB008E30F9 /* OnboardingView.swift */; };
 		C79E139D28E9B0990010C4BA /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E139C28E9B0990010C4BA /* DiaryListView.swift */; };
 		C79E139F28E9C0590010C4BA /* FlatLinkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */; };
 		C79E13A328EB169A0010C4BA /* AddDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79E13A228EB169A0010C4BA /* AddDiaryView.swift */; };
@@ -70,6 +72,8 @@
 		C73555E2292FCD47008E30F9 /* EditDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDiaryView.swift; sourceTree = "<group>"; };
 		C73555E429311E25008E30F9 /* EditNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteView.swift; sourceTree = "<group>"; };
 		C73555FB29324C25008E30F9 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		C7355601293F107E008E30F9 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
+		C7355603293F10CB008E30F9 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		C79E139C28E9B0990010C4BA /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		C79E139E28E9C0590010C4BA /* FlatLinkStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkStyle.swift; sourceTree = "<group>"; };
 		C79E13A228EB169A0010C4BA /* AddDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiaryView.swift; sourceTree = "<group>"; };
@@ -159,6 +163,8 @@
 				C73555E429311E25008E30F9 /* EditNoteView.swift */,
 				C701B4C028FB3A9D00C94DE3 /* PlantSearchView.swift */,
 				C701B4C228FBD16000C94DE3 /* ActivityIndicatorView.swift */,
+				C7355601293F107E008E30F9 /* LaunchScreenView.swift */,
+				C7355603293F10CB008E30F9 /* OnboardingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -280,6 +286,7 @@
 				C72752B728D250E300013F46 /* ContentView.swift in Sources */,
 				C73555E529311E25008E30F9 /* EditNoteView.swift in Sources */,
 				C701B4BF28FB31B900C94DE3 /* PlantListDataStore.swift in Sources */,
+				C7355604293F10CB008E30F9 /* OnboardingView.swift in Sources */,
 				C73555DC292FAE09008E30F9 /* NoteImageView.swift in Sources */,
 				C73555DF292FB3B4008E30F9 /* Leafy.xcdatamodeld in Sources */,
 				C70C12E928D70978003DF92A /* MainView.swift in Sources */,
@@ -287,6 +294,7 @@
 				C701B4C128FB3A9D00C94DE3 /* PlantSearchView.swift in Sources */,
 				C72752B528D250E300013F46 /* LeafyApp.swift in Sources */,
 				C72752C628D2565300013F46 /* PlantInfo.swift in Sources */,
+				C7355602293F107E008E30F9 /* LaunchScreenView.swift in Sources */,
 				C73555DA292FA7CE008E30F9 /* NoteDetailView.swift in Sources */,
 				C72752CD28D25E7300013F46 /* PlantDataStore.swift in Sources */,
 				C70C12ED28D758D7003DF92A /* AddNoteView.swift in Sources */,
@@ -431,7 +439,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Leafy/Preview Content\"";
 				DEVELOPMENT_TEAM = HY8Y957QK3;
 				ENABLE_PREVIEWS = YES;
@@ -465,7 +473,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Leafy/Preview Content\"";
 				DEVELOPMENT_TEAM = HY8Y957QK3;
 				ENABLE_PREVIEWS = YES;

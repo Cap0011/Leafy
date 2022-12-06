@@ -13,7 +13,7 @@ struct LeafyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView()
+            LaunchScreenView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .accentColor(Color("Black"))
         }
