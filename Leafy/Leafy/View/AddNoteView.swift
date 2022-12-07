@@ -44,11 +44,8 @@ struct AddNoteView: View {
                             Image(uiImage: selectedImage)
                                 .resizable()
                                 .cornerRadius(8)
-                            
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundColor(Color("Black"))
-                                .font(.system(size: 44))
-                                .background(Circle().foregroundColor(.white).frame(width: 30, height: 30))
+
+                            Image("plus")
                         }
                         .frame(height: UIScreen.main.bounds.width - 48)
                         .padding(.top, 24)
