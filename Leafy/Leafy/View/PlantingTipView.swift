@@ -33,7 +33,8 @@ struct PlantingTipView: View {
                 .foregroundColor(Color("Black"))
                 .padding(.horizontal, 12)
                 .font(.custom(FontManager.Pretendard.medium, size: 13))
-                .padding(.top, 20)
+                .padding(.top, 35)
+                .padding(.bottom, 10)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 16) {
                     if isLoading {
@@ -49,7 +50,7 @@ struct PlantingTipView: View {
                     } else {
                         HStack(spacing: 16) {
                             InfoCardView(iconImage: Image(systemName: "thermometer"), color: Color("Temperature"), title: "생육 온도", info: temperature)
-                            InfoCardView(iconImage: Image(systemName: "humidity.fill"), color: Color("Water"), title: "습도", info: humidity)
+                            InfoCardView(iconImage: Image(systemName: "humidity.fill"), color: Color("Humidity"), title: "습도", info: humidity)
                         }
                         HStack(spacing: 16) {
                             InfoCardView(iconImage: Image(systemName: "sun.max.fill"), color: Color("Sun"), title: "필요 광도", info: sunlight)
@@ -68,7 +69,6 @@ struct PlantingTipView: View {
                                 Rectangle()
                                     .foregroundColor(Color("Unselected"))
                                     .frame(height: 1)
-                                    .padding(.vertical, 8)
                                 HStack(spacing: 8) {
                                     VStack(alignment: .leading, spacing: 8) {
                                         Text("봄")
@@ -135,6 +135,7 @@ struct InfoCardView: View {
                 Text(title)
                     .font(.custom(FontManager.Pretendard.medium, size: 13))
                     .foregroundColor(Color("GreyText"))
+                Divider()
                 Text(info)
                     .font(.custom(FontManager.Pretendard.medium, size: 15))
                     .foregroundColor(Color("Black"))
